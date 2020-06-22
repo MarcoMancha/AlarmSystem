@@ -2,9 +2,9 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectVersion>6.1</ProjectVersion>
+    <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.HPInfoTech.CodeVisionAVR.C</ToolchainName>
-    <ProjectGuid>{02CB2072-423D-497C-A76A-A46C3F34E8A0}</ProjectGuid>
+    <ProjectGuid>{DE12D3FE-423D-497C-A76A-A46C3F34E8A0}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.cof</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>ControlAcceso</AssemblyName>
-    <Name>ControlAcceso</Name>
-    <RootNamespace>ControlAcceso</RootNamespace>
+    <AssemblyName>alarma</AssemblyName>
+    <Name>alarma</Name>
+    <RootNamespace>alarma</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -24,19 +24,21 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <CV>
-        <CVProjectPath>"ControlAcceso.prj"</CVProjectPath>
+        <CVProjectPath>"alarma.prj"</CVProjectPath>
       </CV>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <CV>
-        <CVProjectPath>"ControlAcceso.prj"</CVProjectPath>
+        <CVProjectPath>"alarma.prj"</CVProjectPath>
       </CV>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ControlAcceso.c">
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="alarma.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

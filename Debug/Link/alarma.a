@@ -1,9 +1,11 @@
 ;/*
-; * LCDDemoTeensy.c
+; * sensor.c
 ; *
-; * Created: 21/02/2017 02:13:41 p. m.
-; * Author: adomingu
+; * Created: 6/11/2020 8:29:24 PM
+; * Authors: Marco Mancha - Ivett Nunez - Mayka Arizbeth
 ; */
+;
+;//Configure display
 ;#asm
 ;PCODE: $00000000 VOL: 0
     .equ __lcd_port=0x08
@@ -21,11 +23,13 @@
     .equ __lcd_D7=5
 ;PCODE: $00000007 VOL: 0
 ;PCODE: $00000008 VOL: 0
-; 0000 000F #endasm
+; 0000 0011 #endasm
 ;
+;
+;//Configure keypad
 ;#asm
 ;PCODE: $00000009 VOL: 0
-    .equ __keypad_port=0x0b
+    .equ __keypad_port=0x0B
 ;PCODE: $0000000A VOL: 0
     .equ __keypad_R1=0
 ;PCODE: $0000000B VOL: 0
@@ -42,9 +46,10 @@
     .equ __keypad_C3=4
 ;PCODE: $00000011 VOL: 0
 ;PCODE: $00000012 VOL: 0
-; 0000 001A #endasm
+; 0000 001E #endasm
 ;
-;#include <io.h>
+;
+;#include <stdio.h>
 ;PCODE: $00000013 VOL: 0
 	#ifndef __SLEEP_DEFINED__
 ;PCODE: $00000014 VOL: 0
@@ -69,6 +74,7 @@
 	#endif
 ;PCODE: $0000001E VOL: 0
 ;PCODE: $0000001F VOL: 0
+;#include <io.h>
 ;#include <delay.h>
 ;#include <display.h>
 
@@ -81,22 +87,22 @@
 ;PCODE: $00000025 VOL: 0
 ;PCODE: $00000026 VOL: 0
 ;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
 ;	TableSetup -> Y+1
 ;	i -> R16
-;PCODE: $00000028 VOL: 0
-; 0000 001E     SBI __lcd_port-1,__lcd_EN
-    SBI __lcd_port-1,__lcd_EN
 ;PCODE: $00000029 VOL: 0
-    SBI __lcd_port-1,__lcd_RS
+; 0000 0024     SBI __lcd_port-1,__lcd_EN
+    SBI __lcd_port-1,__lcd_EN
 ;PCODE: $0000002A VOL: 0
-    SBI __lcd_port-1,__lcd_D4
+    SBI __lcd_port-1,__lcd_RS
 ;PCODE: $0000002B VOL: 0
-    SBI __lcd_port-1,__lcd_D5
+    SBI __lcd_port-1,__lcd_D4
 ;PCODE: $0000002C VOL: 0
-    SBI __lcd_port-1,__lcd_D6
+    SBI __lcd_port-1,__lcd_D5
 ;PCODE: $0000002D VOL: 0
-    SBI __lcd_port-1,__lcd_D7
+    SBI __lcd_port-1,__lcd_D6
 ;PCODE: $0000002E VOL: 0
+    SBI __lcd_port-1,__lcd_D7
 ;PCODE: $0000002F VOL: 0
 ;PCODE: $00000030 VOL: 0
 ;PCODE: $00000031 VOL: 0
@@ -137,65 +143,65 @@
 ;PCODE: $00000054 VOL: 0
 ;PCODE: $00000055 VOL: 0
 ;PCODE: $00000056 VOL: 0
-    SBI __lcd_port,__lcd_EN  // EN=1;
 ;PCODE: $00000057 VOL: 0
-    CBI __lcd_port,__lcd_EN // EN=0;
+    SBI __lcd_port,__lcd_EN  // EN=1;
 ;PCODE: $00000058 VOL: 0
+    CBI __lcd_port,__lcd_EN // EN=0;
 ;PCODE: $00000059 VOL: 0
 ;PCODE: $0000005A VOL: 0
 ;PCODE: $0000005B VOL: 0
 ;PCODE: $0000005C VOL: 0
 ;PCODE: $0000005D VOL: 0
 ;PCODE: $0000005E VOL: 0
-;	dato -> Y+0
 ;PCODE: $0000005F VOL: 0
 ;PCODE: $00000060 VOL: 0
+;	dato -> R16
 ;PCODE: $00000061 VOL: 0
 ;PCODE: $00000062 VOL: 0
-	SBI __lcd_port,__lcd_D7
 ;PCODE: $00000063 VOL: 0
 ;PCODE: $00000064 VOL: 0
+	SBI __lcd_port,__lcd_D7
 ;PCODE: $00000065 VOL: 0
 ;PCODE: $00000066 VOL: 0
-	CBI __lcd_port,__lcd_D7
 ;PCODE: $00000067 VOL: 0
 ;PCODE: $00000068 VOL: 0
+	CBI __lcd_port,__lcd_D7
 ;PCODE: $00000069 VOL: 0
 ;PCODE: $0000006A VOL: 0
 ;PCODE: $0000006B VOL: 0
 ;PCODE: $0000006C VOL: 0
-	SBI __lcd_port,__lcd_D6
 ;PCODE: $0000006D VOL: 0
 ;PCODE: $0000006E VOL: 0
+	SBI __lcd_port,__lcd_D6
 ;PCODE: $0000006F VOL: 0
 ;PCODE: $00000070 VOL: 0
-	CBI __lcd_port,__lcd_D6
 ;PCODE: $00000071 VOL: 0
 ;PCODE: $00000072 VOL: 0
+	CBI __lcd_port,__lcd_D6
 ;PCODE: $00000073 VOL: 0
 ;PCODE: $00000074 VOL: 0
 ;PCODE: $00000075 VOL: 0
 ;PCODE: $00000076 VOL: 0
-	SBI __lcd_port,__lcd_D5
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
+	SBI __lcd_port,__lcd_D5
 ;PCODE: $00000079 VOL: 0
 ;PCODE: $0000007A VOL: 0
-	CBI __lcd_port,__lcd_D5
 ;PCODE: $0000007B VOL: 0
 ;PCODE: $0000007C VOL: 0
+	CBI __lcd_port,__lcd_D5
 ;PCODE: $0000007D VOL: 0
 ;PCODE: $0000007E VOL: 0
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
-	SBI __lcd_port,__lcd_D4
 ;PCODE: $00000081 VOL: 0
 ;PCODE: $00000082 VOL: 0
+	SBI __lcd_port,__lcd_D4
 ;PCODE: $00000083 VOL: 0
 ;PCODE: $00000084 VOL: 0
-	CBI __lcd_port,__lcd_D4
 ;PCODE: $00000085 VOL: 0
 ;PCODE: $00000086 VOL: 0
+	CBI __lcd_port,__lcd_D4
 ;PCODE: $00000087 VOL: 0
 ;PCODE: $00000088 VOL: 0
 ;PCODE: $00000089 VOL: 0
@@ -203,13 +209,13 @@
 ;PCODE: $0000008B VOL: 0
 ;PCODE: $0000008C VOL: 0
 ;PCODE: $0000008D VOL: 0
-;	Comando -> Y+1
-;	tempComando -> R16
 ;PCODE: $0000008E VOL: 0
-	CBI __lcd_port,__lcd_RS
 ;PCODE: $0000008F VOL: 0
 ;PCODE: $00000090 VOL: 0
+;	Comando -> R17
+;	tempComando -> R16
 ;PCODE: $00000091 VOL: 0
+	CBI __lcd_port,__lcd_RS
 ;PCODE: $00000092 VOL: 0
 ;PCODE: $00000093 VOL: 0
 ;PCODE: $00000094 VOL: 0
@@ -236,12 +242,12 @@
 ;PCODE: $000000A9 VOL: 0
 ;PCODE: $000000AA VOL: 0
 ;PCODE: $000000AB VOL: 0
-;	dato -> Y+1
-;	tempdato -> R16
 ;PCODE: $000000AC VOL: 0
-	SBI __lcd_port,__lcd_RS
 ;PCODE: $000000AD VOL: 0
+;	dato -> R17
+;	tempdato -> R16
 ;PCODE: $000000AE VOL: 0
+	SBI __lcd_port,__lcd_RS
 ;PCODE: $000000AF VOL: 0
 ;PCODE: $000000B0 VOL: 0
 ;PCODE: $000000B1 VOL: 0
@@ -269,6 +275,7 @@
 ;PCODE: $000000C7 VOL: 0
 ;PCODE: $000000C8 VOL: 0
 ;PCODE: $000000C9 VOL: 0
+;	Mensaje -> R17,R18
 ;	i -> R16
 ;PCODE: $000000CA VOL: 0
 ;PCODE: $000000CB VOL: 0
@@ -299,9 +306,10 @@
 ;PCODE: $000000E4 VOL: 0
 ;PCODE: $000000E5 VOL: 0
 ;PCODE: $000000E6 VOL: 0
-;PCODE: $000000E7 VOL: 0
-;	tiempo -> Y+1
+;	Mensaje -> R19,R20
+;	tiempo -> R17,R18
 ;	i -> R16
+;PCODE: $000000E7 VOL: 0
 ;PCODE: $000000E8 VOL: 0
 ;PCODE: $000000E9 VOL: 0
 ;PCODE: $000000EA VOL: 0
@@ -330,12 +338,12 @@
 ;PCODE: $00000101 VOL: 0
 ;PCODE: $00000102 VOL: 0
 ;PCODE: $00000103 VOL: 0
+;	Mensaje -> R17,R18
+;	i -> R16
 ;PCODE: $00000104 VOL: 0
 ;PCODE: $00000105 VOL: 0
 ;PCODE: $00000106 VOL: 0
 ;PCODE: $00000107 VOL: 0
-;	Mensaje -> Y+1
-;	i -> R16
 ;PCODE: $00000108 VOL: 0
 ;PCODE: $00000109 VOL: 0
 ;PCODE: $0000010A VOL: 0
@@ -367,10 +375,10 @@
 ;PCODE: $00000124 VOL: 0
 ;PCODE: $00000125 VOL: 0
 ;PCODE: $00000126 VOL: 0
+;	x -> R17
+;	y -> R16
 ;PCODE: $00000127 VOL: 0
 ;PCODE: $00000128 VOL: 0
-;	x -> Y+1
-;	y -> Y+0
 ;PCODE: $00000129 VOL: 0
 ;PCODE: $0000012A VOL: 0
 ;PCODE: $0000012B VOL: 0
@@ -444,13 +452,13 @@
 ;PCODE: $0000016F VOL: 0
 ;PCODE: $00000170 VOL: 0
 ;PCODE: $00000171 VOL: 0
-;	NoCaracter -> Y+3
-;	datos -> Y+1
-;	i -> R16
 ;PCODE: $00000172 VOL: 0
 ;PCODE: $00000173 VOL: 0
 ;PCODE: $00000174 VOL: 0
 ;PCODE: $00000175 VOL: 0
+;	NoCaracter -> R19
+;	datos -> R17,R18
+;	i -> R16
 ;PCODE: $00000176 VOL: 0
 ;PCODE: $00000177 VOL: 0
 ;PCODE: $00000178 VOL: 0
@@ -477,415 +485,419 @@
 ;PCODE: $0000018D VOL: 0
 ;PCODE: $0000018E VOL: 0
 ;PCODE: $0000018F VOL: 0
-;#include <stdio.h>
+;PCODE: $00000190 VOL: 0
+;PCODE: $00000191 VOL: 0
+;PCODE: $00000192 VOL: 0
 ;#include <eeprom.h>
 ;
 ;void SetupKeypad()
-; 0000 0023 {
-;PCODE: $00000190 VOL: 0
-;PCODE: $00000191 VOL: 0
-; 0000 0024     #asm
-;PCODE: $00000192 VOL: 0
-; 0000 0025         SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
-        SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
+; 0000 0028 {
 ;PCODE: $00000193 VOL: 0
-; 0000 0026         SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
-        SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
 ;PCODE: $00000194 VOL: 0
-; 0000 0027         SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
-        SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
+; 0000 0029     #asm
 ;PCODE: $00000195 VOL: 0
-; 0000 0028         SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
-        SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
+; 0000 002A         SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
+        SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
 ;PCODE: $00000196 VOL: 0
-; 0000 0029         SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
-        SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
+; 0000 002B         SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
+        SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
 ;PCODE: $00000197 VOL: 0
-; 0000 002A         SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
-        SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
+; 0000 002C         SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
+        SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
 ;PCODE: $00000198 VOL: 0
-; 0000 002B         SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
-        SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
+; 0000 002D         SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
+        SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
 ;PCODE: $00000199 VOL: 0
+; 0000 002E         SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
+        SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
 ;PCODE: $0000019A VOL: 0
-; 0000 002C     #endasm
-; 0000 002D }
+; 0000 002F         SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
+        SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
 ;PCODE: $0000019B VOL: 0
+; 0000 0030         SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
+        SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
 ;PCODE: $0000019C VOL: 0
+;PCODE: $0000019D VOL: 0
+; 0000 0031     #endasm
+; 0000 0032 }
+;PCODE: $0000019E VOL: 0
+;PCODE: $0000019F VOL: 0
 ;
 ;#pragma warn-
 ;char LeeTeclado()
-; 0000 0031 {
-;PCODE: $0000019D VOL: 0
-;PCODE: $0000019E VOL: 0
-; 0000 0032     #asm
-;PCODE: $0000019F VOL: 0
-; 0000 0033     Inicio:
-    Inicio:
+; 0000 0036 {
 ;PCODE: $000001A0 VOL: 0
-; 0000 0034         SBIS __keypad_port-2,__keypad_C1
-        SBIS __keypad_port-2,__keypad_C1
 ;PCODE: $000001A1 VOL: 0
-; 0000 0035         RJMP BarridoC1
-        RJMP BarridoC1
+; 0000 0037     #asm
 ;PCODE: $000001A2 VOL: 0
-; 0000 0036         SBIS __keypad_port-2,__keypad_C2
-        SBIS __keypad_port-2,__keypad_C2
+; 0000 0038     Inicio:
+    Inicio:
 ;PCODE: $000001A3 VOL: 0
-; 0000 0037         RJMP BarridoC2
-        RJMP BarridoC2
+; 0000 0039         SBIS __keypad_port-2,__keypad_C1
+        SBIS __keypad_port-2,__keypad_C1
 ;PCODE: $000001A4 VOL: 0
-; 0000 0038         SBIS __keypad_port-2,__keypad_C3
-        SBIS __keypad_port-2,__keypad_C3
+; 0000 003A         RJMP BarridoC1
+        RJMP BarridoC1
 ;PCODE: $000001A5 VOL: 0
-; 0000 0039         RJMP BarridoC3
-        RJMP BarridoC3
+; 0000 003B         SBIS __keypad_port-2,__keypad_C2
+        SBIS __keypad_port-2,__keypad_C2
 ;PCODE: $000001A6 VOL: 0
-; 0000 003A         CLR R30    ;no hay tecla presionada
-        CLR R30    ;no hay tecla presionada
+; 0000 003C         RJMP BarridoC2
+        RJMP BarridoC2
 ;PCODE: $000001A7 VOL: 0
-; 0000 003B         RJMP Fin
-        RJMP Fin
+; 0000 003D         SBIS __keypad_port-2,__keypad_C3
+        SBIS __keypad_port-2,__keypad_C3
 ;PCODE: $000001A8 VOL: 0
-; 0000 003C      BarridoC1:
-     BarridoC1:
+; 0000 003E         RJMP BarridoC3
+        RJMP BarridoC3
 ;PCODE: $000001A9 VOL: 0
-; 0000 003D         LDI R30,'1'
-        LDI R30,'1'
+; 0000 003F         CLR R30    ;no hay tecla presionada
+        CLR R30    ;no hay tecla presionada
 ;PCODE: $000001AA VOL: 0
-; 0000 003E         SBI __keypad_port,__keypad_R2   ;R2=1
-        SBI __keypad_port,__keypad_R2   ;R2=1
+; 0000 0040         RJMP Fin
+        RJMP Fin
 ;PCODE: $000001AB VOL: 0
-; 0000 003F         SBI __keypad_port,__keypad_R3   ;R3=1
-        SBI __keypad_port,__keypad_R3   ;R3=1
+; 0000 0041      BarridoC1:
+     BarridoC1:
 ;PCODE: $000001AC VOL: 0
-; 0000 0040         SBI __keypad_port,__keypad_R4   ;R4=1
-        SBI __keypad_port,__keypad_R4   ;R4=1
+; 0000 0042         LDI R30,'1'
+        LDI R30,'1'
 ;PCODE: $000001AD VOL: 0
-; 0000 0041         NOP
-        NOP
+; 0000 0043         SBI __keypad_port,__keypad_R2   ;R2=1
+        SBI __keypad_port,__keypad_R2   ;R2=1
 ;PCODE: $000001AE VOL: 0
-; 0000 0042         SBIS __keypad_port-2,__keypad_C1
-        SBIS __keypad_port-2,__keypad_C1
+; 0000 0044         SBI __keypad_port,__keypad_R3   ;R3=1
+        SBI __keypad_port,__keypad_R3   ;R3=1
 ;PCODE: $000001AF VOL: 0
-; 0000 0043         RJMP Fin
-        RJMP Fin
+; 0000 0045         SBI __keypad_port,__keypad_R4   ;R4=1
+        SBI __keypad_port,__keypad_R4   ;R4=1
 ;PCODE: $000001B0 VOL: 0
-; 0000 0044         LDI R30,'4'
-        LDI R30,'4'
+; 0000 0046         NOP
+        NOP
 ;PCODE: $000001B1 VOL: 0
-; 0000 0045         SBI __keypad_port,__keypad_R1   ;R1=1
-        SBI __keypad_port,__keypad_R1   ;R1=1
+; 0000 0047         SBIS __keypad_port-2,__keypad_C1
+        SBIS __keypad_port-2,__keypad_C1
 ;PCODE: $000001B2 VOL: 0
-; 0000 0046         CBI __keypad_port,__keypad_R2   ;R2=0
-        CBI __keypad_port,__keypad_R2   ;R2=0
+; 0000 0048         RJMP Fin
+        RJMP Fin
 ;PCODE: $000001B3 VOL: 0
-; 0000 0047         NOP
-        NOP
+; 0000 0049         LDI R30,'4'
+        LDI R30,'4'
 ;PCODE: $000001B4 VOL: 0
-; 0000 0048         SBIS __keypad_port-2,__keypad_C1
-        SBIS __keypad_port-2,__keypad_C1
+; 0000 004A         SBI __keypad_port,__keypad_R1   ;R1=1
+        SBI __keypad_port,__keypad_R1   ;R1=1
 ;PCODE: $000001B5 VOL: 0
-; 0000 0049         RJMP Fin
-        RJMP Fin
+; 0000 004B         CBI __keypad_port,__keypad_R2   ;R2=0
+        CBI __keypad_port,__keypad_R2   ;R2=0
 ;PCODE: $000001B6 VOL: 0
-; 0000 004A         LDI R30,'7'
-        LDI R30,'7'
+; 0000 004C         NOP
+        NOP
 ;PCODE: $000001B7 VOL: 0
-; 0000 004B         SBI __keypad_port,__keypad_R2   ;R2=1
-        SBI __keypad_port,__keypad_R2   ;R2=1
+; 0000 004D         SBIS __keypad_port-2,__keypad_C1
+        SBIS __keypad_port-2,__keypad_C1
 ;PCODE: $000001B8 VOL: 0
-; 0000 004C         CBI __keypad_port,__keypad_R3   ;R3=0
-        CBI __keypad_port,__keypad_R3   ;R3=0
+; 0000 004E         RJMP Fin
+        RJMP Fin
 ;PCODE: $000001B9 VOL: 0
-; 0000 004D         NOP
-        NOP
+; 0000 004F         LDI R30,'7'
+        LDI R30,'7'
 ;PCODE: $000001BA VOL: 0
-; 0000 004E         SBIS __keypad_port-2,__keypad_C1
-        SBIS __keypad_port-2,__keypad_C1
+; 0000 0050         SBI __keypad_port,__keypad_R2   ;R2=1
+        SBI __keypad_port,__keypad_R2   ;R2=1
 ;PCODE: $000001BB VOL: 0
-; 0000 004F 
-
+; 0000 0051         CBI __keypad_port,__keypad_R3   ;R3=0
+        CBI __keypad_port,__keypad_R3   ;R3=0
 ;PCODE: $000001BC VOL: 0
-; 0000 0050         RJMP Fin
-        RJMP Fin
+; 0000 0052         NOP
+        NOP
 ;PCODE: $000001BD VOL: 0
-; 0000 0051         LDI R30,'*'
-        LDI R30,'*'
-;PCODE: $000001BE VOL: 0
-; 0000 0052         SBI __keypad_port,__keypad_R3   ;R3=1
-        SBI __keypad_port,__keypad_R3   ;R3=1
-;PCODE: $000001BF VOL: 0
-; 0000 0053         CBI __keypad_port,__keypad_R4   ;R4=0
-        CBI __keypad_port,__keypad_R4   ;R4=0
-;PCODE: $000001C0 VOL: 0
-; 0000 0054         NOP
-        NOP
-;PCODE: $000001C1 VOL: 0
-; 0000 0055         SBIS __keypad_port-2,__keypad_C1
+; 0000 0053         SBIS __keypad_port-2,__keypad_C1
         SBIS __keypad_port-2,__keypad_C1
+;PCODE: $000001BE VOL: 0
+; 0000 0054 
+
+;PCODE: $000001BF VOL: 0
+; 0000 0055         RJMP Fin
+        RJMP Fin
+;PCODE: $000001C0 VOL: 0
+; 0000 0056         LDI R30,'*'
+        LDI R30,'*'
+;PCODE: $000001C1 VOL: 0
+; 0000 0057         SBI __keypad_port,__keypad_R3   ;R3=1
+        SBI __keypad_port,__keypad_R3   ;R3=1
 ;PCODE: $000001C2 VOL: 0
-; 0000 0056         RJMP Fin
-        RJMP Fin
+; 0000 0058         CBI __keypad_port,__keypad_R4   ;R4=0
+        CBI __keypad_port,__keypad_R4   ;R4=0
 ;PCODE: $000001C3 VOL: 0
-; 0000 0057         CLR R30
-        CLR R30
+; 0000 0059         NOP
+        NOP
 ;PCODE: $000001C4 VOL: 0
-; 0000 0058         RJMP Fin
-        RJMP Fin
+; 0000 005A         SBIS __keypad_port-2,__keypad_C1
+        SBIS __keypad_port-2,__keypad_C1
 ;PCODE: $000001C5 VOL: 0
-; 0000 0059      BarridoC2:
-     BarridoC2:
+; 0000 005B         RJMP Fin
+        RJMP Fin
 ;PCODE: $000001C6 VOL: 0
-; 0000 005A         LDI R30,'2'
-        LDI R30,'2'
+; 0000 005C         CLR R30
+        CLR R30
 ;PCODE: $000001C7 VOL: 0
-; 0000 005B         SBI __keypad_port,__keypad_R2   ;R2=1
-        SBI __keypad_port,__keypad_R2   ;R2=1
+; 0000 005D         RJMP Fin
+        RJMP Fin
 ;PCODE: $000001C8 VOL: 0
-; 0000 005C         SBI __keypad_port,__keypad_R3   ;R3=1
-        SBI __keypad_port,__keypad_R3   ;R3=1
+; 0000 005E      BarridoC2:
+     BarridoC2:
 ;PCODE: $000001C9 VOL: 0
-; 0000 005D         SBI __keypad_port,__keypad_R4   ;R4=1
-        SBI __keypad_port,__keypad_R4   ;R4=1
+; 0000 005F         LDI R30,'2'
+        LDI R30,'2'
 ;PCODE: $000001CA VOL: 0
-; 0000 005E         NOP
-        NOP
+; 0000 0060         SBI __keypad_port,__keypad_R2   ;R2=1
+        SBI __keypad_port,__keypad_R2   ;R2=1
 ;PCODE: $000001CB VOL: 0
-; 0000 005F         SBIS __keypad_port-2,__keypad_C2
-        SBIS __keypad_port-2,__keypad_C2
+; 0000 0061         SBI __keypad_port,__keypad_R3   ;R3=1
+        SBI __keypad_port,__keypad_R3   ;R3=1
 ;PCODE: $000001CC VOL: 0
-; 0000 0060         RJMP Fin
-        RJMP Fin
-;PCODE: $000001CD VOL: 0
-; 0000 0061         LDI R30,'5'
-        LDI R30,'5'
-;PCODE: $000001CE VOL: 0
-; 0000 0062         SBI __keypad_port,__keypad_R1   ;R1=1
-        SBI __keypad_port,__keypad_R1   ;R1=1
-;PCODE: $000001CF VOL: 0
-; 0000 0063         CBI __keypad_port,__keypad_R2   ;R2=0
-        CBI __keypad_port,__keypad_R2   ;R2=0
-;PCODE: $000001D0 VOL: 0
-; 0000 0064         NOP
-        NOP
-;PCODE: $000001D1 VOL: 0
-; 0000 0065         SBIS __keypad_port-2,__keypad_C2
-        SBIS __keypad_port-2,__keypad_C2
-;PCODE: $000001D2 VOL: 0
-; 0000 0066         RJMP Fin
-        RJMP Fin
-;PCODE: $000001D3 VOL: 0
-; 0000 0067         LDI R30,'8'
-        LDI R30,'8'
-;PCODE: $000001D4 VOL: 0
-; 0000 0068         SBI __keypad_port,__keypad_R2   ;R2=1
-        SBI __keypad_port,__keypad_R2   ;R2=1
-;PCODE: $000001D5 VOL: 0
-; 0000 0069         CBI __keypad_port,__keypad_R3   ;R3=0
-        CBI __keypad_port,__keypad_R3   ;R3=0
-;PCODE: $000001D6 VOL: 0
-; 0000 006A         NOP
-        NOP
-;PCODE: $000001D7 VOL: 0
-; 0000 006B         SBIS __keypad_port-2,__keypad_C2
-        SBIS __keypad_port-2,__keypad_C2
-;PCODE: $000001D8 VOL: 0
-; 0000 006C         RJMP Fin
-        RJMP Fin
-;PCODE: $000001D9 VOL: 0
-; 0000 006D         LDI R30,'0'
-        LDI R30,'0'
-;PCODE: $000001DA VOL: 0
-; 0000 006E         SBI __keypad_port,__keypad_R3   ;R3=1
-        SBI __keypad_port,__keypad_R3   ;R3=1
-;PCODE: $000001DB VOL: 0
-; 0000 006F         CBI __keypad_port,__keypad_R4   ;R4=0
-        CBI __keypad_port,__keypad_R4   ;R4=0
-;PCODE: $000001DC VOL: 0
-; 0000 0070         NOP
-        NOP
-;PCODE: $000001DD VOL: 0
-; 0000 0071         SBIS __keypad_port-2,__keypad_C2
-        SBIS __keypad_port-2,__keypad_C2
-;PCODE: $000001DE VOL: 0
-; 0000 0072         RJMP Fin
-        RJMP Fin
-;PCODE: $000001DF VOL: 0
-; 0000 0073         CLR R30
-        CLR R30
-;PCODE: $000001E0 VOL: 0
-; 0000 0074 
-
-;PCODE: $000001E1 VOL: 0
-; 0000 0075      BarridoC3:
-     BarridoC3:
-;PCODE: $000001E2 VOL: 0
-; 0000 0076         LDI R30,'3'
-        LDI R30,'3'
-;PCODE: $000001E3 VOL: 0
-; 0000 0077         SBI __keypad_port,__keypad_R2   ;R2=1
-        SBI __keypad_port,__keypad_R2   ;R2=1
-;PCODE: $000001E4 VOL: 0
-; 0000 0078         SBI __keypad_port,__keypad_R3   ;R3=1
-        SBI __keypad_port,__keypad_R3   ;R3=1
-;PCODE: $000001E5 VOL: 0
-; 0000 0079         SBI __keypad_port,__keypad_R4   ;R4=1
+; 0000 0062         SBI __keypad_port,__keypad_R4   ;R4=1
         SBI __keypad_port,__keypad_R4   ;R4=1
-;PCODE: $000001E6 VOL: 0
-; 0000 007A         NOP
+;PCODE: $000001CD VOL: 0
+; 0000 0063         NOP
         NOP
-;PCODE: $000001E7 VOL: 0
-; 0000 007B         SBIS __keypad_port-2,__keypad_C3
-        SBIS __keypad_port-2,__keypad_C3
-;PCODE: $000001E8 VOL: 0
-; 0000 007C         RJMP Fin
+;PCODE: $000001CE VOL: 0
+; 0000 0064         SBIS __keypad_port-2,__keypad_C2
+        SBIS __keypad_port-2,__keypad_C2
+;PCODE: $000001CF VOL: 0
+; 0000 0065         RJMP Fin
         RJMP Fin
-;PCODE: $000001E9 VOL: 0
-; 0000 007D         LDI R30,'6'
-        LDI R30,'6'
-;PCODE: $000001EA VOL: 0
-; 0000 007E         SBI __keypad_port,__keypad_R1   ;R1=1
+;PCODE: $000001D0 VOL: 0
+; 0000 0066         LDI R30,'5'
+        LDI R30,'5'
+;PCODE: $000001D1 VOL: 0
+; 0000 0067         SBI __keypad_port,__keypad_R1   ;R1=1
         SBI __keypad_port,__keypad_R1   ;R1=1
-;PCODE: $000001EB VOL: 0
-; 0000 007F         CBI __keypad_port,__keypad_R2   ;R2=0
+;PCODE: $000001D2 VOL: 0
+; 0000 0068         CBI __keypad_port,__keypad_R2   ;R2=0
         CBI __keypad_port,__keypad_R2   ;R2=0
-;PCODE: $000001EC VOL: 0
-; 0000 0080         NOP
+;PCODE: $000001D3 VOL: 0
+; 0000 0069         NOP
         NOP
-;PCODE: $000001ED VOL: 0
-; 0000 0081         SBIS __keypad_port-2,__keypad_C3
-        SBIS __keypad_port-2,__keypad_C3
-;PCODE: $000001EE VOL: 0
-; 0000 0082         RJMP Fin
+;PCODE: $000001D4 VOL: 0
+; 0000 006A         SBIS __keypad_port-2,__keypad_C2
+        SBIS __keypad_port-2,__keypad_C2
+;PCODE: $000001D5 VOL: 0
+; 0000 006B         RJMP Fin
         RJMP Fin
-;PCODE: $000001EF VOL: 0
-; 0000 0083         LDI R30,'9'
-        LDI R30,'9'
-;PCODE: $000001F0 VOL: 0
-; 0000 0084         SBI __keypad_port,__keypad_R2   ;R2=1
+;PCODE: $000001D6 VOL: 0
+; 0000 006C         LDI R30,'8'
+        LDI R30,'8'
+;PCODE: $000001D7 VOL: 0
+; 0000 006D         SBI __keypad_port,__keypad_R2   ;R2=1
         SBI __keypad_port,__keypad_R2   ;R2=1
-;PCODE: $000001F1 VOL: 0
-; 0000 0085         CBI __keypad_port,__keypad_R3   ;R3=0
+;PCODE: $000001D8 VOL: 0
+; 0000 006E         CBI __keypad_port,__keypad_R3   ;R3=0
         CBI __keypad_port,__keypad_R3   ;R3=0
-;PCODE: $000001F2 VOL: 0
-; 0000 0086         NOP
+;PCODE: $000001D9 VOL: 0
+; 0000 006F         NOP
         NOP
-;PCODE: $000001F3 VOL: 0
-; 0000 0087         SBIS __keypad_port-2,__keypad_C3
-        SBIS __keypad_port-2,__keypad_C3
-;PCODE: $000001F4 VOL: 0
-; 0000 0088         RJMP Fin
+;PCODE: $000001DA VOL: 0
+; 0000 0070         SBIS __keypad_port-2,__keypad_C2
+        SBIS __keypad_port-2,__keypad_C2
+;PCODE: $000001DB VOL: 0
+; 0000 0071         RJMP Fin
         RJMP Fin
-;PCODE: $000001F5 VOL: 0
-; 0000 0089         LDI R30,'#'
-        LDI R30,'#'
-;PCODE: $000001F6 VOL: 0
-; 0000 008A         SBI __keypad_port,__keypad_R3   ;R3=1
+;PCODE: $000001DC VOL: 0
+; 0000 0072         LDI R30,'0'
+        LDI R30,'0'
+;PCODE: $000001DD VOL: 0
+; 0000 0073         SBI __keypad_port,__keypad_R3   ;R3=1
         SBI __keypad_port,__keypad_R3   ;R3=1
-;PCODE: $000001F7 VOL: 0
-; 0000 008B         CBI __keypad_port,__keypad_R4   ;R4=0
+;PCODE: $000001DE VOL: 0
+; 0000 0074         CBI __keypad_port,__keypad_R4   ;R4=0
         CBI __keypad_port,__keypad_R4   ;R4=0
-;PCODE: $000001F8 VOL: 0
-; 0000 008C         NOP
+;PCODE: $000001DF VOL: 0
+; 0000 0075         NOP
         NOP
-;PCODE: $000001F9 VOL: 0
-; 0000 008D         SBIS __keypad_port-2,__keypad_C3
-        SBIS __keypad_port-2,__keypad_C3
-;PCODE: $000001FA VOL: 0
-; 0000 008E         RJMP Fin
+;PCODE: $000001E0 VOL: 0
+; 0000 0076         SBIS __keypad_port-2,__keypad_C2
+        SBIS __keypad_port-2,__keypad_C2
+;PCODE: $000001E1 VOL: 0
+; 0000 0077         RJMP Fin
         RJMP Fin
-;PCODE: $000001FB VOL: 0
-; 0000 008F         CLR R30
+;PCODE: $000001E2 VOL: 0
+; 0000 0078         CLR R30
         CLR R30
-;PCODE: $000001FC VOL: 0
-; 0000 0090      Fin:
-     Fin:
-;PCODE: $000001FD VOL: 0
-; 0000 0091         CBI __keypad_port,__keypad_R1
-        CBI __keypad_port,__keypad_R1
-;PCODE: $000001FE VOL: 0
-; 0000 0092         CBI __keypad_port,__keypad_R2
-        CBI __keypad_port,__keypad_R2
-;PCODE: $000001FF VOL: 0
-; 0000 0093         CBI __keypad_port,__keypad_R3
-        CBI __keypad_port,__keypad_R3
-;PCODE: $00000200 VOL: 0
-; 0000 0094         CBI __keypad_port,__keypad_R4
-        CBI __keypad_port,__keypad_R4
-;PCODE: $00000201 VOL: 0
-; 0000 0095 
+;PCODE: $000001E3 VOL: 0
+; 0000 0079 
 
+;PCODE: $000001E4 VOL: 0
+; 0000 007A      BarridoC3:
+     BarridoC3:
+;PCODE: $000001E5 VOL: 0
+; 0000 007B         LDI R30,'3'
+        LDI R30,'3'
+;PCODE: $000001E6 VOL: 0
+; 0000 007C         SBI __keypad_port,__keypad_R2   ;R2=1
+        SBI __keypad_port,__keypad_R2   ;R2=1
+;PCODE: $000001E7 VOL: 0
+; 0000 007D         SBI __keypad_port,__keypad_R3   ;R3=1
+        SBI __keypad_port,__keypad_R3   ;R3=1
+;PCODE: $000001E8 VOL: 0
+; 0000 007E         SBI __keypad_port,__keypad_R4   ;R4=1
+        SBI __keypad_port,__keypad_R4   ;R4=1
+;PCODE: $000001E9 VOL: 0
+; 0000 007F         NOP
+        NOP
+;PCODE: $000001EA VOL: 0
+; 0000 0080         SBIS __keypad_port-2,__keypad_C3
+        SBIS __keypad_port-2,__keypad_C3
+;PCODE: $000001EB VOL: 0
+; 0000 0081         RJMP Fin
+        RJMP Fin
+;PCODE: $000001EC VOL: 0
+; 0000 0082         LDI R30,'6'
+        LDI R30,'6'
+;PCODE: $000001ED VOL: 0
+; 0000 0083         SBI __keypad_port,__keypad_R1   ;R1=1
+        SBI __keypad_port,__keypad_R1   ;R1=1
+;PCODE: $000001EE VOL: 0
+; 0000 0084         CBI __keypad_port,__keypad_R2   ;R2=0
+        CBI __keypad_port,__keypad_R2   ;R2=0
+;PCODE: $000001EF VOL: 0
+; 0000 0085         NOP
+        NOP
+;PCODE: $000001F0 VOL: 0
+; 0000 0086         SBIS __keypad_port-2,__keypad_C3
+        SBIS __keypad_port-2,__keypad_C3
+;PCODE: $000001F1 VOL: 0
+; 0000 0087         RJMP Fin
+        RJMP Fin
+;PCODE: $000001F2 VOL: 0
+; 0000 0088         LDI R30,'9'
+        LDI R30,'9'
+;PCODE: $000001F3 VOL: 0
+; 0000 0089         SBI __keypad_port,__keypad_R2   ;R2=1
+        SBI __keypad_port,__keypad_R2   ;R2=1
+;PCODE: $000001F4 VOL: 0
+; 0000 008A         CBI __keypad_port,__keypad_R3   ;R3=0
+        CBI __keypad_port,__keypad_R3   ;R3=0
+;PCODE: $000001F5 VOL: 0
+; 0000 008B         NOP
+        NOP
+;PCODE: $000001F6 VOL: 0
+; 0000 008C         SBIS __keypad_port-2,__keypad_C3
+        SBIS __keypad_port-2,__keypad_C3
+;PCODE: $000001F7 VOL: 0
+; 0000 008D         RJMP Fin
+        RJMP Fin
+;PCODE: $000001F8 VOL: 0
+; 0000 008E         LDI R30,'#'
+        LDI R30,'#'
+;PCODE: $000001F9 VOL: 0
+; 0000 008F         SBI __keypad_port,__keypad_R3   ;R3=1
+        SBI __keypad_port,__keypad_R3   ;R3=1
+;PCODE: $000001FA VOL: 0
+; 0000 0090         CBI __keypad_port,__keypad_R4   ;R4=0
+        CBI __keypad_port,__keypad_R4   ;R4=0
+;PCODE: $000001FB VOL: 0
+; 0000 0091         NOP
+        NOP
+;PCODE: $000001FC VOL: 0
+; 0000 0092         SBIS __keypad_port-2,__keypad_C3
+        SBIS __keypad_port-2,__keypad_C3
+;PCODE: $000001FD VOL: 0
+; 0000 0093         RJMP Fin
+        RJMP Fin
+;PCODE: $000001FE VOL: 0
+; 0000 0094         CLR R30
+        CLR R30
+;PCODE: $000001FF VOL: 0
+; 0000 0095      Fin:
+     Fin:
+;PCODE: $00000200 VOL: 0
+; 0000 0096         CBI __keypad_port,__keypad_R1
+        CBI __keypad_port,__keypad_R1
+;PCODE: $00000201 VOL: 0
+; 0000 0097         CBI __keypad_port,__keypad_R2
+        CBI __keypad_port,__keypad_R2
 ;PCODE: $00000202 VOL: 0
+; 0000 0098         CBI __keypad_port,__keypad_R3
+        CBI __keypad_port,__keypad_R3
 ;PCODE: $00000203 VOL: 0
-; 0000 0096     #endasm
-; 0000 0097 }
+; 0000 0099         CBI __keypad_port,__keypad_R4
+        CBI __keypad_port,__keypad_R4
 ;PCODE: $00000204 VOL: 0
+; 0000 009A 
+
 ;PCODE: $00000205 VOL: 0
+;PCODE: $00000206 VOL: 0
+; 0000 009B     #endasm
+; 0000 009C }
+;PCODE: $00000207 VOL: 0
+;PCODE: $00000208 VOL: 0
 ;#pragma warn+
 ;
+;typedef unsigned short uint8_t;
+;
+;unsigned int distancia;
+;unsigned int estado;
 ;char tecla;
 ;unsigned int i = 0;
-;unsigned int intentos = 0;
 ;unsigned int estatus = 1;
 
 	.DSEG
 ;// 1 - Alarma Activada
 ;// 2 - Alarma Desactivada
 ;// 3 - Cambiar clave
-;// 4 - Alerta activada
-;unsigned int addr;
+;
 ;char read_key[4];
 ;char write_key[4];
+;uint8_t setting;
 ;
-;void ReseteoClaves()
-; 0000 00A7 {
+;void trigger_s()
+; 0000 00AF {
 
 	.CSEG
-;PCODE: $00000206 VOL: 0
-;PCODE: $00000207 VOL: 0
-; 0000 00A8    unsigned char i;
-; 0000 00A9    for (i=0;i<4;i++)
-;PCODE: $00000208 VOL: 0
-;	i -> R16
 ;PCODE: $00000209 VOL: 0
 ;PCODE: $0000020A VOL: 0
+; 0000 00B0     PORTB.0 = 1;  //Enviar señal
 ;PCODE: $0000020B VOL: 0
 ;PCODE: $0000020C VOL: 0
+; 0000 00B1     delay_us(10); //Despues del delay, trigger envia pulsos de 40KHz y echo comienza a medir
 ;PCODE: $0000020D VOL: 0
+; 0000 00B2     PORTB.0 = 0;  //Apagar señal
 ;PCODE: $0000020E VOL: 0
 ;PCODE: $0000020F VOL: 0
+; 0000 00B3 }
 ;PCODE: $00000210 VOL: 0
 ;PCODE: $00000211 VOL: 0
-; 0000 00AA    {
-; 0000 00AB       write_key[i]='0';
+;
+;void echo_s()
+; 0000 00B6 {
 ;PCODE: $00000212 VOL: 0
 ;PCODE: $00000213 VOL: 0
+; 0000 00B7     distancia = 0;
 ;PCODE: $00000214 VOL: 0
 ;PCODE: $00000215 VOL: 0
+; 0000 00B8     while(PINB.1 == 0); //Esperar activacion de echo
 ;PCODE: $00000216 VOL: 0
-; 0000 00AC    }
 ;PCODE: $00000217 VOL: 0
 ;PCODE: $00000218 VOL: 0
 ;PCODE: $00000219 VOL: 0
 ;PCODE: $0000021A VOL: 0
 ;PCODE: $0000021B VOL: 0
-; 0000 00AD }
+; 0000 00B9 
+; 0000 00BA     do
 ;PCODE: $0000021C VOL: 0
+; 0000 00BB       {
+; 0000 00BC         delay_us(54);
 ;PCODE: $0000021D VOL: 0
+; 0000 00BD         #asm("NOP")
 ;PCODE: $0000021E VOL: 0
-;
-;int comparaClave(){
-; 0000 00AF int comparaClave(){
+; 0000 00BE         distancia++; //Sumar un cm de distancia por cada 54 us de echo
 ;PCODE: $0000021F VOL: 0
 ;PCODE: $00000220 VOL: 0
-; 0000 00B0    unsigned char i;
-; 0000 00B1    unsigned int resultado = 1;
-; 0000 00B2    for (i=0;i<4;i++)
 ;PCODE: $00000221 VOL: 0
-;	i -> R16
-;	resultado -> R17,R18
 ;PCODE: $00000222 VOL: 0
+; 0000 00BF       }
+; 0000 00C0     while ((PINB.1 == 1) && (distancia<400));
 ;PCODE: $00000223 VOL: 0
 ;PCODE: $00000224 VOL: 0
 ;PCODE: $00000225 VOL: 0
@@ -896,458 +908,560 @@
 ;PCODE: $0000022A VOL: 0
 ;PCODE: $0000022B VOL: 0
 ;PCODE: $0000022C VOL: 0
-; 0000 00B3    {
-; 0000 00B4      if(read_key[i] != write_key[i])
 ;PCODE: $0000022D VOL: 0
 ;PCODE: $0000022E VOL: 0
 ;PCODE: $0000022F VOL: 0
+; 0000 00C1 }
 ;PCODE: $00000230 VOL: 0
 ;PCODE: $00000231 VOL: 0
+;
+;void reiniciaClave()
+; 0000 00C4 {
 ;PCODE: $00000232 VOL: 0
 ;PCODE: $00000233 VOL: 0
+; 0000 00C5    unsigned char i;
+; 0000 00C6    for (i=0;i<4;i++)
 ;PCODE: $00000234 VOL: 0
+;	i -> R16
 ;PCODE: $00000235 VOL: 0
 ;PCODE: $00000236 VOL: 0
-; 0000 00B5         resultado = 0;
 ;PCODE: $00000237 VOL: 0
 ;PCODE: $00000238 VOL: 0
-; 0000 00B6    }
 ;PCODE: $00000239 VOL: 0
 ;PCODE: $0000023A VOL: 0
 ;PCODE: $0000023B VOL: 0
 ;PCODE: $0000023C VOL: 0
 ;PCODE: $0000023D VOL: 0
+; 0000 00C7    {
+; 0000 00C8       read_key[i]='0';
 ;PCODE: $0000023E VOL: 0
-; 0000 00B7    return resultado;
 ;PCODE: $0000023F VOL: 0
 ;PCODE: $00000240 VOL: 0
 ;PCODE: $00000241 VOL: 0
 ;PCODE: $00000242 VOL: 0
-; 0000 00B8 }
+; 0000 00C9    }
 ;PCODE: $00000243 VOL: 0
-;
-;void esperaTeclaNoImprime()
-; 0000 00BB {
 ;PCODE: $00000244 VOL: 0
 ;PCODE: $00000245 VOL: 0
-; 0000 00BC     //Espera a presionar tecla
-; 0000 00BD     do{
 ;PCODE: $00000246 VOL: 0
-; 0000 00BE         tecla=LeeTeclado();
 ;PCODE: $00000247 VOL: 0
+; 0000 00CA }
 ;PCODE: $00000248 VOL: 0
-; 0000 00BF     }while(tecla==0);
 ;PCODE: $00000249 VOL: 0
 ;PCODE: $0000024A VOL: 0
+;
+;int comparaClave(){
+; 0000 00CC int comparaClave(){
 ;PCODE: $0000024B VOL: 0
 ;PCODE: $0000024C VOL: 0
+; 0000 00CD    unsigned char i;
+; 0000 00CE    unsigned int resultado = 1;
+; 0000 00CF    for (i=0;i<4;i++)
 ;PCODE: $0000024D VOL: 0
+;	i -> R16
+;	resultado -> R17,R18
 ;PCODE: $0000024E VOL: 0
-; 0000 00C0     write_key[i] = tecla;
 ;PCODE: $0000024F VOL: 0
 ;PCODE: $00000250 VOL: 0
 ;PCODE: $00000251 VOL: 0
 ;PCODE: $00000252 VOL: 0
-; 0000 00C1     //Espera a soltar tecla
-; 0000 00C2     do{
 ;PCODE: $00000253 VOL: 0
-; 0000 00C3         tecla=LeeTeclado();
 ;PCODE: $00000254 VOL: 0
 ;PCODE: $00000255 VOL: 0
-; 0000 00C4     }while(tecla!=0);
 ;PCODE: $00000256 VOL: 0
 ;PCODE: $00000257 VOL: 0
 ;PCODE: $00000258 VOL: 0
+; 0000 00D0    {
+; 0000 00D1      if(read_key[i] != write_key[i])
 ;PCODE: $00000259 VOL: 0
 ;PCODE: $0000025A VOL: 0
 ;PCODE: $0000025B VOL: 0
-; 0000 00C5 }
 ;PCODE: $0000025C VOL: 0
 ;PCODE: $0000025D VOL: 0
-;
-;void esperaTeclaImprime()
-; 0000 00C8 {
 ;PCODE: $0000025E VOL: 0
 ;PCODE: $0000025F VOL: 0
-; 0000 00C9     //Espera a presionar tecla
-; 0000 00CA     do{
 ;PCODE: $00000260 VOL: 0
-; 0000 00CB         tecla=LeeTeclado();
 ;PCODE: $00000261 VOL: 0
 ;PCODE: $00000262 VOL: 0
-; 0000 00CC     }while(tecla==0);
+; 0000 00D2         resultado = 0;
 ;PCODE: $00000263 VOL: 0
 ;PCODE: $00000264 VOL: 0
+; 0000 00D3    }
 ;PCODE: $00000265 VOL: 0
 ;PCODE: $00000266 VOL: 0
 ;PCODE: $00000267 VOL: 0
 ;PCODE: $00000268 VOL: 0
-; 0000 00CD     write_key[i] = tecla;
 ;PCODE: $00000269 VOL: 0
 ;PCODE: $0000026A VOL: 0
+; 0000 00D4    return resultado;
 ;PCODE: $0000026B VOL: 0
 ;PCODE: $0000026C VOL: 0
-; 0000 00CE     CharLCD(tecla);
 ;PCODE: $0000026D VOL: 0
 ;PCODE: $0000026E VOL: 0
-; 0000 00CF     //Espera a soltar tecla
-; 0000 00D0     do{
+; 0000 00D5 }
 ;PCODE: $0000026F VOL: 0
-; 0000 00D1         tecla=LeeTeclado();
+;
+;void esperaTeclaNoImprime()
+; 0000 00D8 {
 ;PCODE: $00000270 VOL: 0
 ;PCODE: $00000271 VOL: 0
-; 0000 00D2     }while(tecla!=0);
+; 0000 00D9     //Espera a presionar tecla
+; 0000 00DA     do{
 ;PCODE: $00000272 VOL: 0
+; 0000 00DB         tecla=LeeTeclado();
 ;PCODE: $00000273 VOL: 0
 ;PCODE: $00000274 VOL: 0
+; 0000 00DC     }while(tecla==0);
 ;PCODE: $00000275 VOL: 0
 ;PCODE: $00000276 VOL: 0
 ;PCODE: $00000277 VOL: 0
-; 0000 00D3 }
 ;PCODE: $00000278 VOL: 0
 ;PCODE: $00000279 VOL: 0
-;
-;
-;void main(void)
-; 0000 00D7 {
 ;PCODE: $0000027A VOL: 0
-; 0000 00D8     //Trabaje a 8MHz
-; 0000 00D9     CLKPR=0x80;
+; 0000 00DD     write_key[i] = tecla;
 ;PCODE: $0000027B VOL: 0
 ;PCODE: $0000027C VOL: 0
-; 0000 00DA     CLKPR=0x00;
 ;PCODE: $0000027D VOL: 0
 ;PCODE: $0000027E VOL: 0
-; 0000 00DB 
-; 0000 00DC     // Setup LCD Y Keypad
-; 0000 00DD     SetupLCD();
+; 0000 00DE     //Espera a soltar tecla
+; 0000 00DF     do{
 ;PCODE: $0000027F VOL: 0
-; 0000 00DE     SetupKeypad();
+; 0000 00E0         tecla=LeeTeclado();
 ;PCODE: $00000280 VOL: 0
-; 0000 00DF 
-; 0000 00E0     // Leer clave de eeprom
-; 0000 00E1     ReseteoClaves();
 ;PCODE: $00000281 VOL: 0
-; 0000 00E2     eeprom_read_block(read_key,0,sizeof(read_key));
+; 0000 00E1     }while(tecla!=0);
 ;PCODE: $00000282 VOL: 0
 ;PCODE: $00000283 VOL: 0
 ;PCODE: $00000284 VOL: 0
 ;PCODE: $00000285 VOL: 0
 ;PCODE: $00000286 VOL: 0
 ;PCODE: $00000287 VOL: 0
+; 0000 00E2 }
 ;PCODE: $00000288 VOL: 0
-; 0000 00E3     addr = 0;
 ;PCODE: $00000289 VOL: 0
+;
+;void esperaTeclaImprime()
+; 0000 00E5 {
 ;PCODE: $0000028A VOL: 0
-; 0000 00E4 
-; 0000 00E5     while (1)
 ;PCODE: $0000028B VOL: 0
-; 0000 00E6     {
-; 0000 00E7         switch(estatus){
+; 0000 00E6     //Espera a presionar tecla
+; 0000 00E7     do{
 ;PCODE: $0000028C VOL: 0
-; 0000 00E8             // Estatus inicial, aquí se debe checar estatus del sensor
-; 0000 00E9             case 1:
+; 0000 00E8         tecla=LeeTeclado();
 ;PCODE: $0000028D VOL: 0
 ;PCODE: $0000028E VOL: 0
-; 0000 00EA                 MoveCursor(0,0);
+; 0000 00E9 
+; 0000 00EA     }while(tecla==0);
 ;PCODE: $0000028F VOL: 0
 ;PCODE: $00000290 VOL: 0
 ;PCODE: $00000291 VOL: 0
 ;PCODE: $00000292 VOL: 0
-; 0000 00EB                 StringLCD("ALARMA ACTIVA");
 ;PCODE: $00000293 VOL: 0
 ;PCODE: $00000294 VOL: 0
+; 0000 00EB     write_key[i] = tecla;
 ;PCODE: $00000295 VOL: 0
-; 0000 00EC                 MoveCursor(0,1);
 ;PCODE: $00000296 VOL: 0
 ;PCODE: $00000297 VOL: 0
 ;PCODE: $00000298 VOL: 0
+; 0000 00EC     CharLCD(tecla);
 ;PCODE: $00000299 VOL: 0
-; 0000 00ED                 StringLCD("CLAVE: ");
 ;PCODE: $0000029A VOL: 0
+; 0000 00ED     //Espera a soltar tecla
+; 0000 00EE     do{
 ;PCODE: $0000029B VOL: 0
+; 0000 00EF         tecla=LeeTeclado();
 ;PCODE: $0000029C VOL: 0
-; 0000 00EE                 MoveCursor(7+i,1);
 ;PCODE: $0000029D VOL: 0
+; 0000 00F0     }while(tecla!=0);
 ;PCODE: $0000029E VOL: 0
 ;PCODE: $0000029F VOL: 0
 ;PCODE: $000002A0 VOL: 0
 ;PCODE: $000002A1 VOL: 0
-; 0000 00EF 
-; 0000 00F0                 esperaTeclaImprime();
 ;PCODE: $000002A2 VOL: 0
-; 0000 00F1 
-; 0000 00F2                 i++;
 ;PCODE: $000002A3 VOL: 0
+; 0000 00F1 }
 ;PCODE: $000002A4 VOL: 0
 ;PCODE: $000002A5 VOL: 0
+;
+;
+;void esperaTeclaImprimeConSensor()
+; 0000 00F5 {
 ;PCODE: $000002A6 VOL: 0
-; 0000 00F3 
-; 0000 00F4                 // Si ya ingreso clave de 4 digitos
-; 0000 00F5                 if(i == 4){
 ;PCODE: $000002A7 VOL: 0
+; 0000 00F6     //Espera a presionar tecla
+; 0000 00F7     do{
 ;PCODE: $000002A8 VOL: 0
+; 0000 00F8         tecla=LeeTeclado();
 ;PCODE: $000002A9 VOL: 0
-; 0000 00F6                     if(comparaClave() == 1){
 ;PCODE: $000002AA VOL: 0
+; 0000 00F9         //Activar sensor
+; 0000 00FA         trigger_s();
 ;PCODE: $000002AB VOL: 0
+; 0000 00FB         echo_s();
 ;PCODE: $000002AC VOL: 0
-; 0000 00F7                         intentos = 0;
+; 0000 00FC         //Si detecta algo a 20 cm o menos, activa sonido y led
+; 0000 00FD         if(distancia <= 20 || estado == 1)
 ;PCODE: $000002AD VOL: 0
 ;PCODE: $000002AE VOL: 0
-; 0000 00F8                         estatus = 2;
 ;PCODE: $000002AF VOL: 0
 ;PCODE: $000002B0 VOL: 0
-; 0000 00F9                     }
-; 0000 00FA                     else{
 ;PCODE: $000002B1 VOL: 0
 ;PCODE: $000002B2 VOL: 0
-; 0000 00FB                         intentos++;
 ;PCODE: $000002B3 VOL: 0
 ;PCODE: $000002B4 VOL: 0
+; 0000 00FE         {
+; 0000 00FF             PORTB.2 = 1;
 ;PCODE: $000002B5 VOL: 0
 ;PCODE: $000002B6 VOL: 0
-; 0000 00FC                         if(intentos >= 3){
+; 0000 0100             PORTD.7 = 1;
 ;PCODE: $000002B7 VOL: 0
 ;PCODE: $000002B8 VOL: 0
+; 0000 0101             estado = 1;
 ;PCODE: $000002B9 VOL: 0
-; 0000 00FD                             // Hacer sonar alarma, prender led
-; 0000 00FE                             estatus = 4;
 ;PCODE: $000002BA VOL: 0
+; 0000 0102         }
+; 0000 0103 
+; 0000 0104     }while(tecla==0);
 ;PCODE: $000002BB VOL: 0
-; 0000 00FF                         }
-; 0000 0100                     }
 ;PCODE: $000002BC VOL: 0
 ;PCODE: $000002BD VOL: 0
-; 0000 0101                     EraseLCD();
 ;PCODE: $000002BE VOL: 0
-; 0000 0102                     i = 0;
 ;PCODE: $000002BF VOL: 0
 ;PCODE: $000002C0 VOL: 0
-; 0000 0103                 }
-; 0000 0104 
-; 0000 0105                 break;
 ;PCODE: $000002C1 VOL: 0
+; 0000 0105     write_key[i] = tecla;
 ;PCODE: $000002C2 VOL: 0
-; 0000 0106 
-; 0000 0107             //Estatus de alarma desactivada, se puede volver a activar la alarma
-; 0000 0108             // o se puede cambiar la clave
-; 0000 0109             case 2:
 ;PCODE: $000002C3 VOL: 0
 ;PCODE: $000002C4 VOL: 0
 ;PCODE: $000002C5 VOL: 0
-; 0000 010A                 MoveCursor(5,0);
+; 0000 0106     CharLCD(tecla);
 ;PCODE: $000002C6 VOL: 0
 ;PCODE: $000002C7 VOL: 0
+; 0000 0107     //Espera a soltar tecla
+; 0000 0108     do{
 ;PCODE: $000002C8 VOL: 0
+; 0000 0109         tecla=LeeTeclado();
 ;PCODE: $000002C9 VOL: 0
-; 0000 010B                 StringLCD("ALARMA");
 ;PCODE: $000002CA VOL: 0
+; 0000 010A     }while(tecla!=0);
 ;PCODE: $000002CB VOL: 0
 ;PCODE: $000002CC VOL: 0
-; 0000 010C                 MoveCursor(2,1);
 ;PCODE: $000002CD VOL: 0
 ;PCODE: $000002CE VOL: 0
 ;PCODE: $000002CF VOL: 0
 ;PCODE: $000002D0 VOL: 0
-; 0000 010D                 StringLCD("DESACTIVADA");
+; 0000 010B }
 ;PCODE: $000002D1 VOL: 0
 ;PCODE: $000002D2 VOL: 0
+;
+;void main(void)
+; 0000 010E {
 ;PCODE: $000002D3 VOL: 0
-; 0000 010E 
-; 0000 010F                 esperaTeclaNoImprime();
+; 0000 010F     // Micro a 8MHz
+; 0000 0110     CLKPR=0x80;
 ;PCODE: $000002D4 VOL: 0
-; 0000 0110 
-; 0000 0111                 if(write_key[i] == '*'){
 ;PCODE: $000002D5 VOL: 0
+; 0000 0111     CLKPR=0;
 ;PCODE: $000002D6 VOL: 0
 ;PCODE: $000002D7 VOL: 0
+; 0000 0112 
+; 0000 0113     SetupLCD();
 ;PCODE: $000002D8 VOL: 0
+; 0000 0114     SetupKeypad();
 ;PCODE: $000002D9 VOL: 0
-; 0000 0112                     // Estatus para activar alarma
-; 0000 0113                     i = 0;
+; 0000 0115 
+; 0000 0116     PORTB.1 = 1; //PC1 entrada pull-up para echo
 ;PCODE: $000002DA VOL: 0
 ;PCODE: $000002DB VOL: 0
-; 0000 0114                     estatus = 1;
+; 0000 0117     DDRB.0 = 1;  //PC0 salida para trigger
 ;PCODE: $000002DC VOL: 0
 ;PCODE: $000002DD VOL: 0
-; 0000 0115                     EraseLCD();
+; 0000 0118     DDRD.7 = 1;  //PD7 salida para bocina
 ;PCODE: $000002DE VOL: 0
-; 0000 0116                 }else if(write_key[i] == '#'){
 ;PCODE: $000002DF VOL: 0
+; 0000 0119     DDRB.2 = 1;  //PB2 salida para led
 ;PCODE: $000002E0 VOL: 0
 ;PCODE: $000002E1 VOL: 0
+; 0000 011A 
+; 0000 011B     // Lectura inicial eeprom y configuracion si aplica
+; 0000 011C     eeprom_read_block((const void*)read_key , (eeprom void*)45, 4);
 ;PCODE: $000002E2 VOL: 0
 ;PCODE: $000002E3 VOL: 0
 ;PCODE: $000002E4 VOL: 0
 ;PCODE: $000002E5 VOL: 0
-; 0000 0117                     // Estatus para cambiar clave
-; 0000 0118                     i = 0;
 ;PCODE: $000002E6 VOL: 0
 ;PCODE: $000002E7 VOL: 0
-; 0000 0119                     estatus = 3;
 ;PCODE: $000002E8 VOL: 0
+; 0000 011D     setting = eeprom_read_byte((uint8_t*)45);
 ;PCODE: $000002E9 VOL: 0
-; 0000 011A                     EraseLCD();
 ;PCODE: $000002EA VOL: 0
-; 0000 011B                 }
-; 0000 011C                 break;
 ;PCODE: $000002EB VOL: 0
 ;PCODE: $000002EC VOL: 0
+; 0000 011E     if(setting == 0xff) {
 ;PCODE: $000002ED VOL: 0
-; 0000 011D 
-; 0000 011E             // Estatus para cambiar clave
-; 0000 011F             case 3:
 ;PCODE: $000002EE VOL: 0
 ;PCODE: $000002EF VOL: 0
+; 0000 011F         reiniciaClave();
 ;PCODE: $000002F0 VOL: 0
-; 0000 0120                 MoveCursor(1,0);
+; 0000 0120     }
+; 0000 0121 
+; 0000 0122     while (1)
 ;PCODE: $000002F1 VOL: 0
 ;PCODE: $000002F2 VOL: 0
+; 0000 0123         {
+; 0000 0124 
+; 0000 0125             switch(estatus)
 ;PCODE: $000002F3 VOL: 0
+; 0000 0126             {
+; 0000 0127                 // Estatus inicial, checar sensor
+; 0000 0128                 case 1:
 ;PCODE: $000002F4 VOL: 0
-; 0000 0121                 StringLCD("CAMBIAR CLAVE");
 ;PCODE: $000002F5 VOL: 0
+; 0000 0129                     MoveCursor(1,0);
 ;PCODE: $000002F6 VOL: 0
 ;PCODE: $000002F7 VOL: 0
-; 0000 0122                 MoveCursor(0,1);
 ;PCODE: $000002F8 VOL: 0
 ;PCODE: $000002F9 VOL: 0
+; 0000 012A                     StringLCD("ALARMA ACTIVA");
 ;PCODE: $000002FA VOL: 0
 ;PCODE: $000002FB VOL: 0
-; 0000 0123                 StringLCD("CLAVE: ");
 ;PCODE: $000002FC VOL: 0
+; 0000 012B                     MoveCursor(0,1);
 ;PCODE: $000002FD VOL: 0
 ;PCODE: $000002FE VOL: 0
-; 0000 0124                 MoveCursor(7+i,1);
 ;PCODE: $000002FF VOL: 0
 ;PCODE: $00000300 VOL: 0
+; 0000 012C                     StringLCD("CLAVE: ");
 ;PCODE: $00000301 VOL: 0
 ;PCODE: $00000302 VOL: 0
 ;PCODE: $00000303 VOL: 0
-; 0000 0125 
-; 0000 0126                 esperaTeclaImprime();
+; 0000 012D                     MoveCursor(7+i,1);
 ;PCODE: $00000304 VOL: 0
-; 0000 0127 
-; 0000 0128                 i++;
 ;PCODE: $00000305 VOL: 0
 ;PCODE: $00000306 VOL: 0
 ;PCODE: $00000307 VOL: 0
 ;PCODE: $00000308 VOL: 0
-; 0000 0129 
-; 0000 012A                 // Si ya ingreso clave de 4 digitos
-; 0000 012B                 if(i == 4){
+; 0000 012E 
+; 0000 012F                     esperaTeclaImprimeConSensor();
 ;PCODE: $00000309 VOL: 0
+; 0000 0130                     i++;
 ;PCODE: $0000030A VOL: 0
 ;PCODE: $0000030B VOL: 0
-; 0000 012C                     // Escribir y leer valor de eeprom y cambiar a estatus
-; 0000 012D                     // de alarma activa
-; 0000 012E                     eeprom_write_block(write_key,0,sizeof(write_key));
 ;PCODE: $0000030C VOL: 0
 ;PCODE: $0000030D VOL: 0
+; 0000 0131 
+; 0000 0132                     //Si ya ingreso clave de 4 digitos
+; 0000 0133                     if(i == 4){
 ;PCODE: $0000030E VOL: 0
 ;PCODE: $0000030F VOL: 0
 ;PCODE: $00000310 VOL: 0
+; 0000 0134                         if(comparaClave() == 1){
 ;PCODE: $00000311 VOL: 0
 ;PCODE: $00000312 VOL: 0
-; 0000 012F                     eeprom_read_block(read_key,0,sizeof(read_key));
 ;PCODE: $00000313 VOL: 0
+; 0000 0135                             estado = 0;
 ;PCODE: $00000314 VOL: 0
 ;PCODE: $00000315 VOL: 0
+; 0000 0136                             estatus = 2;
 ;PCODE: $00000316 VOL: 0
 ;PCODE: $00000317 VOL: 0
+; 0000 0137                         }
+; 0000 0138                         EraseLCD();
 ;PCODE: $00000318 VOL: 0
 ;PCODE: $00000319 VOL: 0
-; 0000 0130                     intentos = 0;
+; 0000 0139                         i = 0;
 ;PCODE: $0000031A VOL: 0
 ;PCODE: $0000031B VOL: 0
-; 0000 0131                     estatus = 1;
+; 0000 013A                     }
+; 0000 013B 
+; 0000 013C                     break;
 ;PCODE: $0000031C VOL: 0
 ;PCODE: $0000031D VOL: 0
-; 0000 0132                     i = 0;
+; 0000 013D 
+; 0000 013E                 //Estatus de alarma desactivada, se puede volver a activar la alarma
+; 0000 013F                 // o se puede cambiar la clave
+; 0000 0140                 case 2:
 ;PCODE: $0000031E VOL: 0
 ;PCODE: $0000031F VOL: 0
-; 0000 0133                     EraseLCD();
 ;PCODE: $00000320 VOL: 0
-; 0000 0134                 }
-; 0000 0135                 break;
+; 0000 0141 
+; 0000 0142                     //Desactivar alarma porque ingreso contraseña correcta
+; 0000 0143                     PORTB.2 = 0;
 ;PCODE: $00000321 VOL: 0
 ;PCODE: $00000322 VOL: 0
-; 0000 0136 
-; 0000 0137             // Estatus de alarma activada, usuario ingreso clave incorrectamente
-; 0000 0138             // 3 o más ocasiones o el sensor detecto algo
-; 0000 0139             case 4:
+; 0000 0144                     PORTD.7 = 0;
 ;PCODE: $00000323 VOL: 0
 ;PCODE: $00000324 VOL: 0
+; 0000 0145                     estado = 0;
 ;PCODE: $00000325 VOL: 0
-; 0000 013A                 MoveCursor(0,0);
 ;PCODE: $00000326 VOL: 0
+; 0000 0146 
+; 0000 0147                     MoveCursor(5,0);
 ;PCODE: $00000327 VOL: 0
 ;PCODE: $00000328 VOL: 0
 ;PCODE: $00000329 VOL: 0
-; 0000 013B                 StringLCD("ALARMA ACTIVADA");
 ;PCODE: $0000032A VOL: 0
+; 0000 0148                     StringLCD("ALARMA");
 ;PCODE: $0000032B VOL: 0
 ;PCODE: $0000032C VOL: 0
-; 0000 013C                 MoveCursor(0,1);
 ;PCODE: $0000032D VOL: 0
+; 0000 0149                     MoveCursor(2,1);
 ;PCODE: $0000032E VOL: 0
 ;PCODE: $0000032F VOL: 0
 ;PCODE: $00000330 VOL: 0
-; 0000 013D                 StringLCD("CLAVE: ");
 ;PCODE: $00000331 VOL: 0
+; 0000 014A                     StringLCD("DESACTIVADA");
 ;PCODE: $00000332 VOL: 0
 ;PCODE: $00000333 VOL: 0
-; 0000 013E                 MoveCursor(7+i,1);
 ;PCODE: $00000334 VOL: 0
+; 0000 014B 
+; 0000 014C                     esperaTeclaNoImprime();
 ;PCODE: $00000335 VOL: 0
+; 0000 014D 
+; 0000 014E                     if(write_key[i] == '*'){
 ;PCODE: $00000336 VOL: 0
 ;PCODE: $00000337 VOL: 0
 ;PCODE: $00000338 VOL: 0
-; 0000 013F 
-; 0000 0140                 esperaTeclaImprime();
 ;PCODE: $00000339 VOL: 0
-; 0000 0141 
-; 0000 0142                 i++;
 ;PCODE: $0000033A VOL: 0
+; 0000 014F                         // Estatus para activar alarma
+; 0000 0150                         i = 0;
 ;PCODE: $0000033B VOL: 0
 ;PCODE: $0000033C VOL: 0
+; 0000 0151                         estatus = 1;
 ;PCODE: $0000033D VOL: 0
-; 0000 0143 
-; 0000 0144                 // Si ya ingreso clave de 4 digitos
-; 0000 0145                 if(i == 4){
 ;PCODE: $0000033E VOL: 0
+; 0000 0152                         EraseLCD();
 ;PCODE: $0000033F VOL: 0
+; 0000 0153                         //Delay para que el usuario corra
+; 0000 0154                         MoveCursor(0,0);
 ;PCODE: $00000340 VOL: 0
-; 0000 0146                     if(comparaClave() == 1){
 ;PCODE: $00000341 VOL: 0
 ;PCODE: $00000342 VOL: 0
 ;PCODE: $00000343 VOL: 0
-; 0000 0147                         // Apagar led y alarma
-; 0000 0148                         // Cambiar a estatus de alarma
-; 0000 0149                         intentos = 0;
+; 0000 0155                         StringLCD("ALARMA ACTIVADA");
 ;PCODE: $00000344 VOL: 0
 ;PCODE: $00000345 VOL: 0
-; 0000 014A                         estatus = 2;
 ;PCODE: $00000346 VOL: 0
+; 0000 0156                         delay_ms(3000);
 ;PCODE: $00000347 VOL: 0
-; 0000 014B                     }
-; 0000 014C                     i = 0;
 ;PCODE: $00000348 VOL: 0
+; 0000 0157                         EraseLCD();
 ;PCODE: $00000349 VOL: 0
+; 0000 0158 
+; 0000 0159                     }else if(write_key[i] == '#'){
 ;PCODE: $0000034A VOL: 0
-; 0000 014D                     EraseLCD();
 ;PCODE: $0000034B VOL: 0
-; 0000 014E                 }
-; 0000 014F                 break;
 ;PCODE: $0000034C VOL: 0
 ;PCODE: $0000034D VOL: 0
-; 0000 0150         }
 ;PCODE: $0000034E VOL: 0
-; 0000 0151     }
 ;PCODE: $0000034F VOL: 0
 ;PCODE: $00000350 VOL: 0
-; 0000 0152 }
+; 0000 015A                         // Estatus para cambiar clave
+; 0000 015B                         i = 0;
 ;PCODE: $00000351 VOL: 0
 ;PCODE: $00000352 VOL: 0
+; 0000 015C                         estatus = 3;
 ;PCODE: $00000353 VOL: 0
+;PCODE: $00000354 VOL: 0
+; 0000 015D                         EraseLCD();
+;PCODE: $00000355 VOL: 0
+; 0000 015E                     }
+; 0000 015F                     break;
+;PCODE: $00000356 VOL: 0
+;PCODE: $00000357 VOL: 0
+;PCODE: $00000358 VOL: 0
+; 0000 0160 
+; 0000 0161                 // Estatus para cambiar clave
+; 0000 0162                 case 3:
+;PCODE: $00000359 VOL: 0
+;PCODE: $0000035A VOL: 0
+;PCODE: $0000035B VOL: 0
+; 0000 0163                     MoveCursor(1,0);
+;PCODE: $0000035C VOL: 0
+;PCODE: $0000035D VOL: 0
+;PCODE: $0000035E VOL: 0
+;PCODE: $0000035F VOL: 0
+; 0000 0164                     StringLCD("CAMBIAR CLAVE");
+;PCODE: $00000360 VOL: 0
+;PCODE: $00000361 VOL: 0
+;PCODE: $00000362 VOL: 0
+; 0000 0165                     MoveCursor(0,1);
+;PCODE: $00000363 VOL: 0
+;PCODE: $00000364 VOL: 0
+;PCODE: $00000365 VOL: 0
+;PCODE: $00000366 VOL: 0
+; 0000 0166                     StringLCD("CLAVE: ");
+;PCODE: $00000367 VOL: 0
+;PCODE: $00000368 VOL: 0
+;PCODE: $00000369 VOL: 0
+; 0000 0167                     MoveCursor(7+i,1);
+;PCODE: $0000036A VOL: 0
+;PCODE: $0000036B VOL: 0
+;PCODE: $0000036C VOL: 0
+;PCODE: $0000036D VOL: 0
+;PCODE: $0000036E VOL: 0
+; 0000 0168 
+; 0000 0169                     esperaTeclaImprime();
+;PCODE: $0000036F VOL: 0
+; 0000 016A 
+; 0000 016B                     i++;
+;PCODE: $00000370 VOL: 0
+;PCODE: $00000371 VOL: 0
+;PCODE: $00000372 VOL: 0
+;PCODE: $00000373 VOL: 0
+; 0000 016C 
+; 0000 016D                     // Si ya ingreso clave de 4 digitos
+; 0000 016E                     if(i == 4){
+;PCODE: $00000374 VOL: 0
+;PCODE: $00000375 VOL: 0
+;PCODE: $00000376 VOL: 0
+; 0000 016F                         // Escribir y leer valor de eeprom y cambiar a estatus
+; 0000 0170                         // de alarma activa
+; 0000 0171                         eeprom_write_block(write_key,(eeprom void*)45,sizeof(write_key));
+;PCODE: $00000377 VOL: 0
+;PCODE: $00000378 VOL: 0
+;PCODE: $00000379 VOL: 0
+;PCODE: $0000037A VOL: 0
+;PCODE: $0000037B VOL: 0
+;PCODE: $0000037C VOL: 0
+;PCODE: $0000037D VOL: 0
+; 0000 0172                         eeprom_read_block(read_key,(eeprom void*)45,sizeof(read_key));
+;PCODE: $0000037E VOL: 0
+;PCODE: $0000037F VOL: 0
+;PCODE: $00000380 VOL: 0
+;PCODE: $00000381 VOL: 0
+;PCODE: $00000382 VOL: 0
+;PCODE: $00000383 VOL: 0
+;PCODE: $00000384 VOL: 0
+; 0000 0173                         estatus = 1;
+;PCODE: $00000385 VOL: 0
+;PCODE: $00000386 VOL: 0
+; 0000 0174                         i = 0;
+;PCODE: $00000387 VOL: 0
+;PCODE: $00000388 VOL: 0
+; 0000 0175                         EraseLCD();
+;PCODE: $00000389 VOL: 0
+; 0000 0176                         //Delay para que el usuario corra
+; 0000 0177                         delay_ms(3000);
+;PCODE: $0000038A VOL: 0
+;PCODE: $0000038B VOL: 0
+; 0000 0178                     }
+; 0000 0179                     break;
+;PCODE: $0000038C VOL: 0
+;PCODE: $0000038D VOL: 0
+; 0000 017A             }
+;PCODE: $0000038E VOL: 0
+; 0000 017B 
+; 0000 017C 
+; 0000 017D 
+; 0000 017E 
+; 0000 017F 
+; 0000 0180 
+; 0000 0181         }
+;PCODE: $0000038F VOL: 0
+;PCODE: $00000390 VOL: 0
+; 0000 0182 }
+;PCODE: $00000391 VOL: 0
+;PCODE: $00000392 VOL: 0
+;PCODE: $00000393 VOL: 0

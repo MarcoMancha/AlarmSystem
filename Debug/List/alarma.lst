@@ -1,9 +1,9 @@
 
-AVRASM ver. 2.1.30  C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\ControlAcceso\Debug\List\ControlAcceso.asm Thu Jun 11 21:46:25 2020
+AVRASM ver. 2.1.30  C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\Alarma\Debug\List\alarma.asm Tue Jun 16 03:33:07 2020
 
                  
                  
-                 ;CodeVisionAVR C Compiler V3.39a 
+                 ;CodeVisionAVR C Compiler V3.39a Evaluation
                  ;(C) Copyright 1998-2020 Pavel Haiduc, HP InfoTech s.r.l.
                  ;http://www.hpinfotech.ro
                  
@@ -22,7 +22,7 @@ AVRASM ver. 2.1.30  C:\Users\Marco Mancha\Documents\Microcontroladores\Proyectos
                  ;'char' is unsigned     : Yes
                  ;8 bit enums            : Yes
                  ;Global 'const' stored in FLASH: No
-                 ;Enhanced function parameter passing: Mode 1
+                 ;Enhanced function parameter passing: Mode 2
                  ;Enhanced core instructions: On
                  ;Automatic register allocation for global variables: Off
                  ;Smart register allocation: Off
@@ -1142,7 +1142,7 @@ AVRASM ver. 2.1.30  C:\Users\Marco Mancha\Documents\Microcontroladores\Proyectos
 000041 0100
 000042 0600      	.DB  0x0,0x1,0x0,0x6
                  _0x22:
-C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\ControlAcceso\Debug\List\ControlAcceso.asm(1131): warning: .cseg .db misalignment - padding zero byte
+C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\Alarma\Debug\List\alarma.asm(1131): warning: .cseg .db misalignment - padding zero byte
 000043 0001      	.DB  0x1
                  _0x0:
 000044 4c41
@@ -1165,27 +1165,27 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
 000055 4954
 000056 4156
 000057 4144      	.DB  0x41,0x43,0x54,0x49,0x56,0x41,0x44,0x41
-000058 4300
-000059 4d41
-00005a 4942
-00005b 5241      	.DB  0x0,0x43,0x41,0x4D,0x42,0x49,0x41,0x52
-00005c 4320
-00005d 414c
-00005e 4556
-00005f 4100      	.DB  0x20,0x43,0x4C,0x41,0x56,0x45,0x0,0x41
-000060 414c
-000061 4d52
-000062 2041
-000063 4341      	.DB  0x4C,0x41,0x52,0x4D,0x41,0x20,0x41,0x43
-000064 4954
-000065 4156
-000066 4144
-C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\ControlAcceso\Debug\List\ControlAcceso.asm(1141): warning: .cseg .db misalignment - padding zero byte
-000067 0000      	.DB  0x54,0x49,0x56,0x41,0x44,0x41,0x0
+000058 4100
+000059 414c
+00005a 4d52
+00005b 2041      	.DB  0x0,0x41,0x4C,0x41,0x52,0x4D,0x41,0x20
+00005c 4341
+00005d 4954
+00005e 4156
+00005f 4144      	.DB  0x41,0x43,0x54,0x49,0x56,0x41,0x44,0x41
+000060 4300
+000061 4d41
+000062 4942
+000063 5241      	.DB  0x0,0x43,0x41,0x4D,0x42,0x49,0x41,0x52
+000064 4320
+000065 414c
+000066 4556
+C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAcceso\Alarma\Debug\List\alarma.asm(1141): warning: .cseg .db misalignment - padding zero byte
+000067 0000      	.DB  0x20,0x43,0x4C,0x41,0x56,0x45,0x0
                  
                  __GLOBAL_INI_TBL:
 000068 0001      	.DW  0x01
-000069 0306      	.DW  _estatus
+000069 0308      	.DW  _estatus
 00006a 0086      	.DW  _0x22*2
                  
                  _0xFFFFFFFF:
@@ -1260,7 +1260,7 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
 000097 e0c0      	LDI  R28,LOW(__SRAM_START+__DSTACK_SIZE)
 000098 e0d3      	LDI  R29,HIGH(__SRAM_START+__DSTACK_SIZE)
                  
-000099 940c 01c3 	JMP  _main
+000099 940c 0220 	JMP  _main
                  
                  	.ESEG
                  	.ORG 0x00
@@ -1270,11 +1270,13 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  
                  	.CSEG
                  ;/*
-                 ; * LCDDemoTeensy.c
+                 ; * sensor.c
                  ; *
-                 ; * Created: 21/02/2017 02:13:41 p. m.
-                 ; * Author: adomingu
+                 ; * Created: 6/11/2020 8:29:24 PM
+                 ; * Authors: Marco Mancha - Ivett Nunez - Mayka Arizbeth
                  ; */
+                 ;
+                 ;//Configure display
                  ;#asm
                      .equ __lcd_port=0x08
                      .equ __lcd_EN=1
@@ -1283,10 +1285,12 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                      .equ __lcd_D5=3
                      .equ __lcd_D6=4
                      .equ __lcd_D7=5
-                 ; 0000 000F #endasm
+                 ; 0000 0011 #endasm
                  ;
+                 ;
+                 ;//Configure keypad
                  ;#asm
-                     .equ __keypad_port=0x0b
+                     .equ __keypad_port=0x0B
                      .equ __keypad_R1=0
                      .equ __keypad_R2=1
                      .equ __keypad_R3=2
@@ -1294,9 +1298,10 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                      .equ __keypad_C1=6
                      .equ __keypad_C2=5
                      .equ __keypad_C3=4
-                 ; 0000 001A #endasm
+                 ; 0000 001E #endasm
                  ;
-                 ;#include <io.h>
+                 ;
+                 ;#include <stdio.h>
                  	#ifndef __SLEEP_DEFINED__
                  	#define __SLEEP_DEFINED__
                  	.EQU __se_bit=0x01
@@ -1308,6 +1313,7 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  	.EQU __sm_ext_standby=0x0E
                  	.SET power_ctrl_reg=smcr
                  	#endif
+                 ;#include <io.h>
                  ;#include <delay.h>
                  ;#include <display.h>
                  
@@ -1316,15 +1322,17 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  ; .FSTART _SetupLCD
 00009b 972c      	SBIW R28,12
 00009c e08c      	LDI  R24,12
-00009d e0a0      	LDI  R26,LOW(0)
-00009e e0b0      	LDI  R27,HIGH(0)
+                +
+00009d e060     +LDI R22 , LOW ( 0 )
+00009e e070     +LDI R23 , HIGH ( 0 )
+                 	__GETWRN 22,23,0
 00009f e7ea      	LDI  R30,LOW(_0x3*2)
 0000a0 e0f0      	LDI  R31,HIGH(_0x3*2)
-0000a1 d264      	RCALL __INITLOCB
+0000a1 d2a9      	RCALL __INITLOCB
 0000a2 930a      	ST   -Y,R16
                  ;	TableSetup -> Y+1
                  ;	i -> R16
-                 ; 0000 001E     SBI __lcd_port-1,__lcd_EN
+                 ; 0000 0024     SBI __lcd_port-1,__lcd_EN
 0000a3 9a39          SBI __lcd_port-1,__lcd_EN
 0000a4 9a38          SBI __lcd_port-1,__lcd_RS
 0000a5 9a3a          SBI __lcd_port-1,__lcd_D4
@@ -1333,14 +1341,14 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
 0000a8 9a3d          SBI __lcd_port-1,__lcd_D7
 0000a9 e3a2      	LDI  R26,LOW(50)
 0000aa e0b0      	LDI  R27,0
-0000ab d27e      	RCALL _delay_ms
+0000ab d2c8      	RCALL _delay_ms
 0000ac e000      	LDI  R16,LOW(0)
                  _0x5:
 0000ad 300c      	CPI  R16,12
 0000ae f470      	BRSH _0x6
 0000af e0a2      	LDI  R26,LOW(2)
 0000b0 e0b0      	LDI  R27,0
-0000b1 d278      	RCALL _delay_ms
+0000b1 d2c2      	RCALL _delay_ms
 0000b2 2fe0      	MOV  R30,R16
 0000b3 e0f0      	LDI  R31,0
 0000b4 01de      	MOVW R26,R28
@@ -1356,7 +1364,7 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
 0000bd e0ec      	LDI  R30,LOW(12)
 0000be 93e0 0300 	STS  _cursor,R30
 0000c0 91a0 0300 	LDS  R26,_cursor
-0000c2 d021      	RCALL _WriteComandLCD
+0000c2 d01e      	RCALL _WriteComandLCD
 0000c3 8108      	LDD  R16,Y+0
 0000c4 962d      	ADIW R28,13
 0000c5 9508      	RET
@@ -1369,810 +1377,969 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  ; .FEND
                  _SendDataBitsLCD:
                  ; .FSTART _SendDataBitsLCD
-0000c9 93aa      	ST   -Y,R26
-                 ;	dato -> Y+0
-0000ca 81e8      	LD   R30,Y
-0000cb 70e8      	ANDI R30,LOW(0x8)
-0000cc f011      	BREQ _0x7
+0000c9 930a      	ST   -Y,R16
+0000ca 2f0a      	MOV  R16,R26
+                 ;	dato -> R16
+0000cb ff03      	SBRS R16,3
+0000cc c002      	RJMP _0x7
 0000cd 9a45      	SBI __lcd_port,__lcd_D7
 0000ce c001      	RJMP _0x8
                  _0x7:
 0000cf 9845      	CBI __lcd_port,__lcd_D7
                  _0x8:
-0000d0 81e8      	LD   R30,Y
-0000d1 70e4      	ANDI R30,LOW(0x4)
-0000d2 f011      	BREQ _0x9
-0000d3 9a44      	SBI __lcd_port,__lcd_D6
-0000d4 c001      	RJMP _0xA
+0000d0 ff02      	SBRS R16,2
+0000d1 c002      	RJMP _0x9
+0000d2 9a44      	SBI __lcd_port,__lcd_D6
+0000d3 c001      	RJMP _0xA
                  _0x9:
-0000d5 9844      	CBI __lcd_port,__lcd_D6
+0000d4 9844      	CBI __lcd_port,__lcd_D6
                  _0xA:
-0000d6 81e8      	LD   R30,Y
-0000d7 70e2      	ANDI R30,LOW(0x2)
-0000d8 f011      	BREQ _0xB
-0000d9 9a43      	SBI __lcd_port,__lcd_D5
-0000da c001      	RJMP _0xC
+0000d5 ff01      	SBRS R16,1
+0000d6 c002      	RJMP _0xB
+0000d7 9a43      	SBI __lcd_port,__lcd_D5
+0000d8 c001      	RJMP _0xC
                  _0xB:
-0000db 9843      	CBI __lcd_port,__lcd_D5
+0000d9 9843      	CBI __lcd_port,__lcd_D5
                  _0xC:
-0000dc 81e8      	LD   R30,Y
-0000dd 70e1      	ANDI R30,LOW(0x1)
-0000de f011      	BREQ _0xD
-0000df 9a42      	SBI __lcd_port,__lcd_D4
-0000e0 c001      	RJMP _0xE
+0000da ff00      	SBRS R16,0
+0000db c002      	RJMP _0xD
+0000dc 9a42      	SBI __lcd_port,__lcd_D4
+0000dd c001      	RJMP _0xE
                  _0xD:
-0000e1 9842      	CBI __lcd_port,__lcd_D4
+0000de 9842      	CBI __lcd_port,__lcd_D4
                  _0xE:
-0000e2 9621      	ADIW R28,1
-0000e3 9508      	RET
+0000df 940c 01c7 	JMP  _0x2080004
                  ; .FEND
                  _WriteComandLCD:
                  ; .FSTART _WriteComandLCD
-0000e4 93aa      	ST   -Y,R26
-0000e5 930a      	ST   -Y,R16
-                 ;	Comando -> Y+1
+0000e1 931a      	ST   -Y,R17
+0000e2 930a      	ST   -Y,R16
+0000e3 2f1a      	MOV  R17,R26
+                 ;	Comando -> R17
                  ;	tempComando -> R16
-0000e6 9840      	CBI __lcd_port,__lcd_RS
-0000e7 d18f      	RCALL SUBOPT_0x0
-0000e8 c036      	RJMP _0x2080003
+0000e4 9840      	CBI __lcd_port,__lcd_RS
+0000e5 c004      	RJMP _0x2080005
                  ; .FEND
                  _CharLCD:
                  ; .FSTART _CharLCD
-0000e9 93aa      	ST   -Y,R26
-0000ea 930a      	ST   -Y,R16
-                 ;	dato -> Y+1
+0000e6 931a      	ST   -Y,R17
+0000e7 930a      	ST   -Y,R16
+0000e8 2f1a      	MOV  R17,R26
+                 ;	dato -> R17
                  ;	tempdato -> R16
-0000eb 9a40      	SBI __lcd_port,__lcd_RS
-0000ec d18a      	RCALL SUBOPT_0x0
-0000ed c031      	RJMP _0x2080003
+0000e9 9a40      	SBI __lcd_port,__lcd_RS
+                 _0x2080005:
+0000ea e0a2      	LDI  R26,LOW(2)
+0000eb e0b0      	LDI  R27,0
+0000ec d287      	RCALL _delay_ms
+0000ed 2fe1      	MOV  R30,R17
+0000ee 7fe0      	ANDI R30,LOW(0xF0)
+0000ef 2f0e      	MOV  R16,R30
+0000f0 9502      	SWAP R16
+0000f1 700f      	ANDI R16,0xF
+0000f2 2fa0      	MOV  R26,R16
+0000f3 dfd5      	RCALL _SendDataBitsLCD
+0000f4 dfd1      	RCALL _PulseEn
+0000f5 2fe1      	MOV  R30,R17
+0000f6 70ef      	ANDI R30,LOW(0xF)
+0000f7 2f0e      	MOV  R16,R30
+0000f8 2fa0      	MOV  R26,R16
+0000f9 dfcf      	RCALL _SendDataBitsLCD
+0000fa e0a2      	LDI  R26,LOW(2)
+0000fb e0b0      	LDI  R27,0
+0000fc d277      	RCALL _delay_ms
+0000fd dfc8      	RCALL _PulseEn
+0000fe 9109      	LD   R16,Y+
+0000ff 9119      	LD   R17,Y+
+000100 9508      	RET
                  ; .FEND
                  _StringLCD:
                  ; .FSTART _StringLCD
-0000ee 93ba      	ST   -Y,R27
-0000ef 93aa      	ST   -Y,R26
-0000f0 930a      	ST   -Y,R16
+000101 d23e      	RCALL __SAVELOCR3
+                +
+000102 2f1a     +MOV R17 , R26
+000103 2f2b     +MOV R18 , R27
+                 	__PUTW2R 17,18
+                 ;	Mensaje -> R17,R18
                  ;	i -> R16
-0000f1 e000      	LDI  R16,LOW(0)
+000104 e000      	LDI  R16,LOW(0)
                  _0x10:
-0000f2 2fe0      	MOV  R30,R16
-0000f3 5f0f      	SUBI R16,-1
-0000f4 d198      	RCALL SUBOPT_0x1
-0000f5 91a4      	LPM  R26,Z
-0000f6 dff2      	RCALL _CharLCD
-0000f7 2fe0      	MOV  R30,R16
-0000f8 d194      	RCALL SUBOPT_0x1
-0000f9 91e4      	LPM  R30,Z
-0000fa 30e0      	CPI  R30,0
-0000fb f7b1      	BRNE _0x10
-0000fc 8108      	LDD  R16,Y+0
-0000fd 940c 01a6 	JMP  _0x2080002
+000105 2fe0      	MOV  R30,R16
+000106 5f0f      	SUBI R16,-1
+000107 e0f0      	LDI  R31,0
+000108 0fe1      	ADD  R30,R17
+000109 1ff2      	ADC  R31,R18
+00010a 91a4      	LPM  R26,Z
+00010b dfda      	RCALL _CharLCD
+00010c 2fe0      	MOV  R30,R16
+00010d e0f0      	LDI  R31,0
+00010e 0fe1      	ADD  R30,R17
+00010f 1ff2      	ADC  R31,R18
+000110 91e4      	LPM  R30,Z
+000111 30e0      	CPI  R30,0
+000112 f791      	BRNE _0x10
+000113 940c 01de 	JMP  _0x2080003
                  ; .FEND
-                 ;	tiempo -> Y+1
+                 ;	Mensaje -> R19,R20
+                 ;	tiempo -> R17,R18
                  ;	i -> R16
-                 ;	Mensaje -> Y+1
+                 ;	Mensaje -> R17,R18
                  ;	i -> R16
                  _EraseLCD:
                  ; .FSTART _EraseLCD
-0000ff e0a1      	LDI  R26,LOW(1)
-000100 dfe3      	RCALL _WriteComandLCD
-000101 9508      	RET
+000115 e0a1      	LDI  R26,LOW(1)
+000116 dfca      	RCALL _WriteComandLCD
+000117 9508      	RET
                  ; .FEND
                  _MoveCursor:
                  ; .FSTART _MoveCursor
-000102 93aa      	ST   -Y,R26
-                 ;	x -> Y+1
-                 ;	y -> Y+0
-000103 81e8      	LD   R30,Y
-000104 e0f0      	LDI  R31,0
-000105 9730      	SBIW R30,0
-000106 f419      	BRNE _0x1B
-000107 81a9      	LDD  R26,Y+1
-000108 58a0      	SUBI R26,-LOW(128)
-000109 c014      	RJMP _0x4B
+000118 931a      	ST   -Y,R17
+000119 930a      	ST   -Y,R16
+00011a 2f0a      	MOV  R16,R26
+00011b 811a      	LDD  R17,Y+2
+                 ;	x -> R17
+                 ;	y -> R16
+00011c 2fe0      	MOV  R30,R16
+00011d e0f0      	LDI  R31,0
+00011e 9730      	SBIW R30,0
+00011f f419      	BRNE _0x1B
+000120 2fa1      	MOV  R26,R17
+000121 58a0      	SUBI R26,-LOW(128)
+000122 c014      	RJMP _0x6C
                  _0x1B:
-00010a 30e1      	CPI  R30,LOW(0x1)
-00010b e0a0      	LDI  R26,HIGH(0x1)
-00010c 07fa      	CPC  R31,R26
-00010d f419      	BRNE _0x1C
-00010e 81a9      	LDD  R26,Y+1
-00010f 54a0      	SUBI R26,-LOW(192)
-000110 c00d      	RJMP _0x4B
+000123 30e1      	CPI  R30,LOW(0x1)
+000124 e0a0      	LDI  R26,HIGH(0x1)
+000125 07fa      	CPC  R31,R26
+000126 f419      	BRNE _0x1C
+000127 2fa1      	MOV  R26,R17
+000128 54a0      	SUBI R26,-LOW(192)
+000129 c00d      	RJMP _0x6C
                  _0x1C:
-000111 30e2      	CPI  R30,LOW(0x2)
-000112 e0a0      	LDI  R26,HIGH(0x2)
-000113 07fa      	CPC  R31,R26
-000114 f419      	BRNE _0x1D
-000115 81a9      	LDD  R26,Y+1
-000116 56ac      	SUBI R26,-LOW(148)
-000117 c006      	RJMP _0x4B
+00012a 30e2      	CPI  R30,LOW(0x2)
+00012b e0a0      	LDI  R26,HIGH(0x2)
+00012c 07fa      	CPC  R31,R26
+00012d f419      	BRNE _0x1D
+00012e 2fa1      	MOV  R26,R17
+00012f 56ac      	SUBI R26,-LOW(148)
+000130 c006      	RJMP _0x6C
                  _0x1D:
-000118 30e3      	CPI  R30,LOW(0x3)
-000119 e0a0      	LDI  R26,HIGH(0x3)
-00011a 07fa      	CPC  R31,R26
-00011b f419      	BRNE _0x1A
-00011c 81a9      	LDD  R26,Y+1
-00011d 52ac      	SUBI R26,-LOW(212)
-                 _0x4B:
-00011e dfc5      	RCALL _WriteComandLCD
+000131 30e3      	CPI  R30,LOW(0x3)
+000132 e0a0      	LDI  R26,HIGH(0x3)
+000133 07fa      	CPC  R31,R26
+000134 f419      	BRNE _0x1A
+000135 2fa1      	MOV  R26,R17
+000136 52ac      	SUBI R26,-LOW(212)
+                 _0x6C:
+000137 dfa9      	RCALL _WriteComandLCD
                  _0x1A:
-                 _0x2080003:
-00011f 9622      	ADIW R28,2
-000120 9508      	RET
+000138 8119      	LDD  R17,Y+1
+000139 8108      	LDD  R16,Y+0
+00013a 940c 01df 	JMP  _0x2080002
                  ; .FEND
-                 ;	NoCaracter -> Y+3
-                 ;	datos -> Y+1
+                 ;	NoCaracter -> R19
+                 ;	datos -> R17,R18
                  ;	i -> R16
-                 ;#include <stdio.h>
                  ;#include <eeprom.h>
                  ;
                  ;void SetupKeypad()
-                 ; 0000 0023 {
+                 ; 0000 0028 {
                  _SetupKeypad:
                  ; .FSTART _SetupKeypad
-                 ; 0000 0024     #asm
-                 ; 0000 0025         SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
-000121 9a50              SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
-                 ; 0000 0026         SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
-000122 9a51              SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
-                 ; 0000 0027         SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
-000123 9a52              SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
-                 ; 0000 0028         SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
-000124 9a53              SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
-                 ; 0000 0029         SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
-000125 9a5e              SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
-                 ; 0000 002A         SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
-000126 9a5d              SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
-                 ; 0000 002B         SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
-000127 9a5c              SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
-                 ; 0000 002C     #endasm
-                 ; 0000 002D }
-000128 9508      	RET
+                 ; 0000 0029     #asm
+                 ; 0000 002A         SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
+00013c 9a50              SBI __keypad_port-1,__keypad_R1 ;Renglón 1 de salida
+                 ; 0000 002B         SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
+00013d 9a51              SBI __keypad_port-1,__keypad_R2 ;Renglón 2 de salida
+                 ; 0000 002C         SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
+00013e 9a52              SBI __keypad_port-1,__keypad_R3 ;Renglón 3 de salida
+                 ; 0000 002D         SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
+00013f 9a53              SBI __keypad_port-1,__keypad_R4 ;Renglón 4 de salida
+                 ; 0000 002E         SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
+000140 9a5e              SBI __keypad_port,__keypad_C1   ;Pull-up en Columna 1
+                 ; 0000 002F         SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
+000141 9a5d              SBI __keypad_port,__keypad_C2   ;Pull-up en Columna 2
+                 ; 0000 0030         SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
+000142 9a5c              SBI __keypad_port,__keypad_C3   ;Pull-up en Columna 3
+                 ; 0000 0031     #endasm
+                 ; 0000 0032 }
+000143 9508      	RET
                  ; .FEND
                  ;
                  ;#pragma warn-
                  ;char LeeTeclado()
-                 ; 0000 0031 {
+                 ; 0000 0036 {
                  _LeeTeclado:
                  ; .FSTART _LeeTeclado
-                 ; 0000 0032     #asm
-                 ; 0000 0033     Inicio:
+                 ; 0000 0037     #asm
+                 ; 0000 0038     Inicio:
                      Inicio:
-                 ; 0000 0034         SBIS __keypad_port-2,__keypad_C1
-000129 9b4e              SBIS __keypad_port-2,__keypad_C1
-                 ; 0000 0035         RJMP BarridoC1
-00012a c006              RJMP BarridoC1
-                 ; 0000 0036         SBIS __keypad_port-2,__keypad_C2
-00012b 9b4d              SBIS __keypad_port-2,__keypad_C2
-                 ; 0000 0037         RJMP BarridoC2
-00012c c01f              RJMP BarridoC2
-                 ; 0000 0038         SBIS __keypad_port-2,__keypad_C3
-00012d 9b4c              SBIS __keypad_port-2,__keypad_C3
-                 ; 0000 0039         RJMP BarridoC3
-00012e c037              RJMP BarridoC3
-                 ; 0000 003A         CLR R30    ;no hay tecla presionada
-00012f 27ee              CLR R30    ;no hay tecla presionada
-                 ; 0000 003B         RJMP Fin
-000130 c04f              RJMP Fin
-                 ; 0000 003C      BarridoC1:
+                 ; 0000 0039         SBIS __keypad_port-2,__keypad_C1
+000144 9b4e              SBIS __keypad_port-2,__keypad_C1
+                 ; 0000 003A         RJMP BarridoC1
+000145 c006              RJMP BarridoC1
+                 ; 0000 003B         SBIS __keypad_port-2,__keypad_C2
+000146 9b4d              SBIS __keypad_port-2,__keypad_C2
+                 ; 0000 003C         RJMP BarridoC2
+000147 c01f              RJMP BarridoC2
+                 ; 0000 003D         SBIS __keypad_port-2,__keypad_C3
+000148 9b4c              SBIS __keypad_port-2,__keypad_C3
+                 ; 0000 003E         RJMP BarridoC3
+000149 c037              RJMP BarridoC3
+                 ; 0000 003F         CLR R30    ;no hay tecla presionada
+00014a 27ee              CLR R30    ;no hay tecla presionada
+                 ; 0000 0040         RJMP Fin
+00014b c04f              RJMP Fin
+                 ; 0000 0041      BarridoC1:
                       BarridoC1:
-                 ; 0000 003D         LDI R30,'1'
-000131 e3e1              LDI R30,'1'
-                 ; 0000 003E         SBI __keypad_port,__keypad_R2   ;R2=1
-000132 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 003F         SBI __keypad_port,__keypad_R3   ;R3=1
-000133 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 0040         SBI __keypad_port,__keypad_R4   ;R4=1
-000134 9a5b              SBI __keypad_port,__keypad_R4   ;R4=1
-                 ; 0000 0041         NOP
-000135 0000              NOP
-                 ; 0000 0042         SBIS __keypad_port-2,__keypad_C1
-000136 9b4e              SBIS __keypad_port-2,__keypad_C1
-                 ; 0000 0043         RJMP Fin
-000137 c048              RJMP Fin
-                 ; 0000 0044         LDI R30,'4'
-000138 e3e4              LDI R30,'4'
-                 ; 0000 0045         SBI __keypad_port,__keypad_R1   ;R1=1
-000139 9a58              SBI __keypad_port,__keypad_R1   ;R1=1
-                 ; 0000 0046         CBI __keypad_port,__keypad_R2   ;R2=0
-00013a 9859              CBI __keypad_port,__keypad_R2   ;R2=0
-                 ; 0000 0047         NOP
-00013b 0000              NOP
-                 ; 0000 0048         SBIS __keypad_port-2,__keypad_C1
-00013c 9b4e              SBIS __keypad_port-2,__keypad_C1
-                 ; 0000 0049         RJMP Fin
-00013d c042              RJMP Fin
-                 ; 0000 004A         LDI R30,'7'
-00013e e3e7              LDI R30,'7'
-                 ; 0000 004B         SBI __keypad_port,__keypad_R2   ;R2=1
-00013f 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 004C         CBI __keypad_port,__keypad_R3   ;R3=0
-000140 985a              CBI __keypad_port,__keypad_R3   ;R3=0
-                 ; 0000 004D         NOP
-000141 0000              NOP
-                 ; 0000 004E         SBIS __keypad_port-2,__keypad_C1
-000142 9b4e              SBIS __keypad_port-2,__keypad_C1
-                 ; 0000 004F 
-                 
-                 ; 0000 0050         RJMP Fin
-000143 c03c              RJMP Fin
-                 ; 0000 0051         LDI R30,'*'
-000144 e2ea              LDI R30,'*'
-                 ; 0000 0052         SBI __keypad_port,__keypad_R3   ;R3=1
-000145 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 0053         CBI __keypad_port,__keypad_R4   ;R4=0
-000146 985b              CBI __keypad_port,__keypad_R4   ;R4=0
-                 ; 0000 0054         NOP
-000147 0000              NOP
-                 ; 0000 0055         SBIS __keypad_port-2,__keypad_C1
-000148 9b4e              SBIS __keypad_port-2,__keypad_C1
-                 ; 0000 0056         RJMP Fin
-000149 c036              RJMP Fin
-                 ; 0000 0057         CLR R30
-00014a 27ee              CLR R30
-                 ; 0000 0058         RJMP Fin
-00014b c034              RJMP Fin
-                 ; 0000 0059      BarridoC2:
-                      BarridoC2:
-                 ; 0000 005A         LDI R30,'2'
-00014c e3e2              LDI R30,'2'
-                 ; 0000 005B         SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 0042         LDI R30,'1'
+00014c e3e1              LDI R30,'1'
+                 ; 0000 0043         SBI __keypad_port,__keypad_R2   ;R2=1
 00014d 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 005C         SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 0044         SBI __keypad_port,__keypad_R3   ;R3=1
 00014e 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 005D         SBI __keypad_port,__keypad_R4   ;R4=1
+                 ; 0000 0045         SBI __keypad_port,__keypad_R4   ;R4=1
 00014f 9a5b              SBI __keypad_port,__keypad_R4   ;R4=1
-                 ; 0000 005E         NOP
+                 ; 0000 0046         NOP
 000150 0000              NOP
-                 ; 0000 005F         SBIS __keypad_port-2,__keypad_C2
-000151 9b4d              SBIS __keypad_port-2,__keypad_C2
-                 ; 0000 0060         RJMP Fin
-000152 c02d              RJMP Fin
-                 ; 0000 0061         LDI R30,'5'
-000153 e3e5              LDI R30,'5'
-                 ; 0000 0062         SBI __keypad_port,__keypad_R1   ;R1=1
+                 ; 0000 0047         SBIS __keypad_port-2,__keypad_C1
+000151 9b4e              SBIS __keypad_port-2,__keypad_C1
+                 ; 0000 0048         RJMP Fin
+000152 c048              RJMP Fin
+                 ; 0000 0049         LDI R30,'4'
+000153 e3e4              LDI R30,'4'
+                 ; 0000 004A         SBI __keypad_port,__keypad_R1   ;R1=1
 000154 9a58              SBI __keypad_port,__keypad_R1   ;R1=1
-                 ; 0000 0063         CBI __keypad_port,__keypad_R2   ;R2=0
+                 ; 0000 004B         CBI __keypad_port,__keypad_R2   ;R2=0
 000155 9859              CBI __keypad_port,__keypad_R2   ;R2=0
-                 ; 0000 0064         NOP
+                 ; 0000 004C         NOP
 000156 0000              NOP
-                 ; 0000 0065         SBIS __keypad_port-2,__keypad_C2
-000157 9b4d              SBIS __keypad_port-2,__keypad_C2
-                 ; 0000 0066         RJMP Fin
-000158 c027              RJMP Fin
-                 ; 0000 0067         LDI R30,'8'
-000159 e3e8              LDI R30,'8'
-                 ; 0000 0068         SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 004D         SBIS __keypad_port-2,__keypad_C1
+000157 9b4e              SBIS __keypad_port-2,__keypad_C1
+                 ; 0000 004E         RJMP Fin
+000158 c042              RJMP Fin
+                 ; 0000 004F         LDI R30,'7'
+000159 e3e7              LDI R30,'7'
+                 ; 0000 0050         SBI __keypad_port,__keypad_R2   ;R2=1
 00015a 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 0069         CBI __keypad_port,__keypad_R3   ;R3=0
+                 ; 0000 0051         CBI __keypad_port,__keypad_R3   ;R3=0
 00015b 985a              CBI __keypad_port,__keypad_R3   ;R3=0
-                 ; 0000 006A         NOP
+                 ; 0000 0052         NOP
 00015c 0000              NOP
-                 ; 0000 006B         SBIS __keypad_port-2,__keypad_C2
-00015d 9b4d              SBIS __keypad_port-2,__keypad_C2
-                 ; 0000 006C         RJMP Fin
-00015e c021              RJMP Fin
-                 ; 0000 006D         LDI R30,'0'
-00015f e3e0              LDI R30,'0'
-                 ; 0000 006E         SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 0053         SBIS __keypad_port-2,__keypad_C1
+00015d 9b4e              SBIS __keypad_port-2,__keypad_C1
+                 ; 0000 0054 
+                 
+                 ; 0000 0055         RJMP Fin
+00015e c03c              RJMP Fin
+                 ; 0000 0056         LDI R30,'*'
+00015f e2ea              LDI R30,'*'
+                 ; 0000 0057         SBI __keypad_port,__keypad_R3   ;R3=1
 000160 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 006F         CBI __keypad_port,__keypad_R4   ;R4=0
+                 ; 0000 0058         CBI __keypad_port,__keypad_R4   ;R4=0
 000161 985b              CBI __keypad_port,__keypad_R4   ;R4=0
-                 ; 0000 0070         NOP
+                 ; 0000 0059         NOP
 000162 0000              NOP
-                 ; 0000 0071         SBIS __keypad_port-2,__keypad_C2
-000163 9b4d              SBIS __keypad_port-2,__keypad_C2
-                 ; 0000 0072         RJMP Fin
-000164 c01b              RJMP Fin
-                 ; 0000 0073         CLR R30
+                 ; 0000 005A         SBIS __keypad_port-2,__keypad_C1
+000163 9b4e              SBIS __keypad_port-2,__keypad_C1
+                 ; 0000 005B         RJMP Fin
+000164 c036              RJMP Fin
+                 ; 0000 005C         CLR R30
 000165 27ee              CLR R30
-                 ; 0000 0074 
+                 ; 0000 005D         RJMP Fin
+000166 c034              RJMP Fin
+                 ; 0000 005E      BarridoC2:
+                      BarridoC2:
+                 ; 0000 005F         LDI R30,'2'
+000167 e3e2              LDI R30,'2'
+                 ; 0000 0060         SBI __keypad_port,__keypad_R2   ;R2=1
+000168 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 0061         SBI __keypad_port,__keypad_R3   ;R3=1
+000169 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 0062         SBI __keypad_port,__keypad_R4   ;R4=1
+00016a 9a5b              SBI __keypad_port,__keypad_R4   ;R4=1
+                 ; 0000 0063         NOP
+00016b 0000              NOP
+                 ; 0000 0064         SBIS __keypad_port-2,__keypad_C2
+00016c 9b4d              SBIS __keypad_port-2,__keypad_C2
+                 ; 0000 0065         RJMP Fin
+00016d c02d              RJMP Fin
+                 ; 0000 0066         LDI R30,'5'
+00016e e3e5              LDI R30,'5'
+                 ; 0000 0067         SBI __keypad_port,__keypad_R1   ;R1=1
+00016f 9a58              SBI __keypad_port,__keypad_R1   ;R1=1
+                 ; 0000 0068         CBI __keypad_port,__keypad_R2   ;R2=0
+000170 9859              CBI __keypad_port,__keypad_R2   ;R2=0
+                 ; 0000 0069         NOP
+000171 0000              NOP
+                 ; 0000 006A         SBIS __keypad_port-2,__keypad_C2
+000172 9b4d              SBIS __keypad_port-2,__keypad_C2
+                 ; 0000 006B         RJMP Fin
+000173 c027              RJMP Fin
+                 ; 0000 006C         LDI R30,'8'
+000174 e3e8              LDI R30,'8'
+                 ; 0000 006D         SBI __keypad_port,__keypad_R2   ;R2=1
+000175 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 006E         CBI __keypad_port,__keypad_R3   ;R3=0
+000176 985a              CBI __keypad_port,__keypad_R3   ;R3=0
+                 ; 0000 006F         NOP
+000177 0000              NOP
+                 ; 0000 0070         SBIS __keypad_port-2,__keypad_C2
+000178 9b4d              SBIS __keypad_port-2,__keypad_C2
+                 ; 0000 0071         RJMP Fin
+000179 c021              RJMP Fin
+                 ; 0000 0072         LDI R30,'0'
+00017a e3e0              LDI R30,'0'
+                 ; 0000 0073         SBI __keypad_port,__keypad_R3   ;R3=1
+00017b 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 0074         CBI __keypad_port,__keypad_R4   ;R4=0
+00017c 985b              CBI __keypad_port,__keypad_R4   ;R4=0
+                 ; 0000 0075         NOP
+00017d 0000              NOP
+                 ; 0000 0076         SBIS __keypad_port-2,__keypad_C2
+00017e 9b4d              SBIS __keypad_port-2,__keypad_C2
+                 ; 0000 0077         RJMP Fin
+00017f c01b              RJMP Fin
+                 ; 0000 0078         CLR R30
+000180 27ee              CLR R30
+                 ; 0000 0079 
                  
-                 ; 0000 0075      BarridoC3:
+                 ; 0000 007A      BarridoC3:
                       BarridoC3:
-                 ; 0000 0076         LDI R30,'3'
-000166 e3e3              LDI R30,'3'
-                 ; 0000 0077         SBI __keypad_port,__keypad_R2   ;R2=1
-000167 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 0078         SBI __keypad_port,__keypad_R3   ;R3=1
-000168 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 0079         SBI __keypad_port,__keypad_R4   ;R4=1
-000169 9a5b              SBI __keypad_port,__keypad_R4   ;R4=1
-                 ; 0000 007A         NOP
-00016a 0000              NOP
-                 ; 0000 007B         SBIS __keypad_port-2,__keypad_C3
-00016b 9b4c              SBIS __keypad_port-2,__keypad_C3
-                 ; 0000 007C         RJMP Fin
-00016c c013              RJMP Fin
-                 ; 0000 007D         LDI R30,'6'
-00016d e3e6              LDI R30,'6'
-                 ; 0000 007E         SBI __keypad_port,__keypad_R1   ;R1=1
-00016e 9a58              SBI __keypad_port,__keypad_R1   ;R1=1
-                 ; 0000 007F         CBI __keypad_port,__keypad_R2   ;R2=0
-00016f 9859              CBI __keypad_port,__keypad_R2   ;R2=0
-                 ; 0000 0080         NOP
-000170 0000              NOP
-                 ; 0000 0081         SBIS __keypad_port-2,__keypad_C3
-000171 9b4c              SBIS __keypad_port-2,__keypad_C3
-                 ; 0000 0082         RJMP Fin
-000172 c00d              RJMP Fin
-                 ; 0000 0083         LDI R30,'9'
-000173 e3e9              LDI R30,'9'
-                 ; 0000 0084         SBI __keypad_port,__keypad_R2   ;R2=1
-000174 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
-                 ; 0000 0085         CBI __keypad_port,__keypad_R3   ;R3=0
-000175 985a              CBI __keypad_port,__keypad_R3   ;R3=0
-                 ; 0000 0086         NOP
-000176 0000              NOP
-                 ; 0000 0087         SBIS __keypad_port-2,__keypad_C3
-000177 9b4c              SBIS __keypad_port-2,__keypad_C3
-                 ; 0000 0088         RJMP Fin
-000178 c007              RJMP Fin
-                 ; 0000 0089         LDI R30,'#'
-000179 e2e3              LDI R30,'#'
-                 ; 0000 008A         SBI __keypad_port,__keypad_R3   ;R3=1
-00017a 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
-                 ; 0000 008B         CBI __keypad_port,__keypad_R4   ;R4=0
-00017b 985b              CBI __keypad_port,__keypad_R4   ;R4=0
-                 ; 0000 008C         NOP
-00017c 0000              NOP
-                 ; 0000 008D         SBIS __keypad_port-2,__keypad_C3
-00017d 9b4c              SBIS __keypad_port-2,__keypad_C3
-                 ; 0000 008E         RJMP Fin
-00017e c001              RJMP Fin
-                 ; 0000 008F         CLR R30
-00017f 27ee              CLR R30
-                 ; 0000 0090      Fin:
+                 ; 0000 007B         LDI R30,'3'
+000181 e3e3              LDI R30,'3'
+                 ; 0000 007C         SBI __keypad_port,__keypad_R2   ;R2=1
+000182 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 007D         SBI __keypad_port,__keypad_R3   ;R3=1
+000183 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 007E         SBI __keypad_port,__keypad_R4   ;R4=1
+000184 9a5b              SBI __keypad_port,__keypad_R4   ;R4=1
+                 ; 0000 007F         NOP
+000185 0000              NOP
+                 ; 0000 0080         SBIS __keypad_port-2,__keypad_C3
+000186 9b4c              SBIS __keypad_port-2,__keypad_C3
+                 ; 0000 0081         RJMP Fin
+000187 c013              RJMP Fin
+                 ; 0000 0082         LDI R30,'6'
+000188 e3e6              LDI R30,'6'
+                 ; 0000 0083         SBI __keypad_port,__keypad_R1   ;R1=1
+000189 9a58              SBI __keypad_port,__keypad_R1   ;R1=1
+                 ; 0000 0084         CBI __keypad_port,__keypad_R2   ;R2=0
+00018a 9859              CBI __keypad_port,__keypad_R2   ;R2=0
+                 ; 0000 0085         NOP
+00018b 0000              NOP
+                 ; 0000 0086         SBIS __keypad_port-2,__keypad_C3
+00018c 9b4c              SBIS __keypad_port-2,__keypad_C3
+                 ; 0000 0087         RJMP Fin
+00018d c00d              RJMP Fin
+                 ; 0000 0088         LDI R30,'9'
+00018e e3e9              LDI R30,'9'
+                 ; 0000 0089         SBI __keypad_port,__keypad_R2   ;R2=1
+00018f 9a59              SBI __keypad_port,__keypad_R2   ;R2=1
+                 ; 0000 008A         CBI __keypad_port,__keypad_R3   ;R3=0
+000190 985a              CBI __keypad_port,__keypad_R3   ;R3=0
+                 ; 0000 008B         NOP
+000191 0000              NOP
+                 ; 0000 008C         SBIS __keypad_port-2,__keypad_C3
+000192 9b4c              SBIS __keypad_port-2,__keypad_C3
+                 ; 0000 008D         RJMP Fin
+000193 c007              RJMP Fin
+                 ; 0000 008E         LDI R30,'#'
+000194 e2e3              LDI R30,'#'
+                 ; 0000 008F         SBI __keypad_port,__keypad_R3   ;R3=1
+000195 9a5a              SBI __keypad_port,__keypad_R3   ;R3=1
+                 ; 0000 0090         CBI __keypad_port,__keypad_R4   ;R4=0
+000196 985b              CBI __keypad_port,__keypad_R4   ;R4=0
+                 ; 0000 0091         NOP
+000197 0000              NOP
+                 ; 0000 0092         SBIS __keypad_port-2,__keypad_C3
+000198 9b4c              SBIS __keypad_port-2,__keypad_C3
+                 ; 0000 0093         RJMP Fin
+000199 c001              RJMP Fin
+                 ; 0000 0094         CLR R30
+00019a 27ee              CLR R30
+                 ; 0000 0095      Fin:
                       Fin:
-                 ; 0000 0091         CBI __keypad_port,__keypad_R1
-000180 9858              CBI __keypad_port,__keypad_R1
-                 ; 0000 0092         CBI __keypad_port,__keypad_R2
-000181 9859              CBI __keypad_port,__keypad_R2
-                 ; 0000 0093         CBI __keypad_port,__keypad_R3
-000182 985a              CBI __keypad_port,__keypad_R3
-                 ; 0000 0094         CBI __keypad_port,__keypad_R4
-000183 985b              CBI __keypad_port,__keypad_R4
-                 ; 0000 0095 
+                 ; 0000 0096         CBI __keypad_port,__keypad_R1
+00019b 9858              CBI __keypad_port,__keypad_R1
+                 ; 0000 0097         CBI __keypad_port,__keypad_R2
+00019c 9859              CBI __keypad_port,__keypad_R2
+                 ; 0000 0098         CBI __keypad_port,__keypad_R3
+00019d 985a              CBI __keypad_port,__keypad_R3
+                 ; 0000 0099         CBI __keypad_port,__keypad_R4
+00019e 985b              CBI __keypad_port,__keypad_R4
+                 ; 0000 009A 
                  
-                 ; 0000 0096     #endasm
-                 ; 0000 0097 }
-000184 9508      	RET
+                 ; 0000 009B     #endasm
+                 ; 0000 009C }
+00019f 9508      	RET
                  ; .FEND
                  ;#pragma warn+
                  ;
+                 ;typedef unsigned short uint8_t;
+                 ;
+                 ;unsigned int distancia;
+                 ;unsigned int estado;
                  ;char tecla;
                  ;unsigned int i = 0;
-                 ;unsigned int intentos = 0;
                  ;unsigned int estatus = 1;
                  
                  	.DSEG
                  ;// 1 - Alarma Activada
                  ;// 2 - Alarma Desactivada
                  ;// 3 - Cambiar clave
-                 ;// 4 - Alerta activada
-                 ;unsigned int addr;
+                 ;
                  ;char read_key[4];
                  ;char write_key[4];
+                 ;uint8_t setting;
                  ;
-                 ;void ReseteoClaves()
-                 ; 0000 00A7 {
+                 ;void trigger_s()
+                 ; 0000 00AF {
                  
                  	.CSEG
-                 _ReseteoClaves:
-                 ; .FSTART _ReseteoClaves
-                 ; 0000 00A8    unsigned char i;
-                 ; 0000 00A9    for (i=0;i<4;i++)
-000185 930a      	ST   -Y,R16
+                 _trigger_s:
+                 ; .FSTART _trigger_s
+                 ; 0000 00B0     PORTB.0 = 1;  //Enviar señal
+0001a0 9a28      	SBI  0x5,0
+                 ; 0000 00B1     delay_us(10); //Despues del delay, trigger envia pulsos de 40KHz y echo comienza a medir
+                +
+0001a1 e18b     +LDI R24 , LOW ( 27 )
+                +__DELAY_USB_LOOP :
+0001a2 958a     +DEC R24
+0001a3 f7f1     +BRNE __DELAY_USB_LOOP
+                 	__DELAY_USB 27
+                 ; 0000 00B2     PORTB.0 = 0;  //Apagar señal
+0001a4 9828      	CBI  0x5,0
+                 ; 0000 00B3 }
+0001a5 9508      	RET
+                 ; .FEND
+                 ;
+                 ;void echo_s()
+                 ; 0000 00B6 {
+                 _echo_s:
+                 ; .FSTART _echo_s
+                 ; 0000 00B7     distancia = 0;
+0001a6 e0e0      	LDI  R30,LOW(0)
+0001a7 93e0 0301 	STS  _distancia,R30
+0001a9 93e0 0302 	STS  _distancia+1,R30
+                 ; 0000 00B8     while(PINB.1 == 0); //Esperar activacion de echo
+                 _0x27:
+0001ab 9b19      	SBIS 0x3,1
+0001ac cffe      	RJMP _0x27
+                 ; 0000 00B9 
+                 ; 0000 00BA     do
+                 _0x2B:
+                 ; 0000 00BB       {
+                 ; 0000 00BC         delay_us(54);
+                +
+0001ad e980     +LDI R24 , LOW ( 144 )
+                +__DELAY_USB_LOOP :
+0001ae 958a     +DEC R24
+0001af f7f1     +BRNE __DELAY_USB_LOOP
+                 	__DELAY_USB 144
+                 ; 0000 00BD         #asm("NOP")
+0001b0 0000      	NOP
+                 ; 0000 00BE         distancia++; //Sumar un cm de distancia por cada 54 us de echo
+0001b1 e0a1      	LDI  R26,LOW(_distancia)
+0001b2 e0b3      	LDI  R27,HIGH(_distancia)
+0001b3 d120      	RCALL SUBOPT_0x0
+                 ; 0000 00BF       }
+                 ; 0000 00C0     while ((PINB.1 == 1) && (distancia<400));
+0001b4 9b19      	SBIS 0x3,1
+0001b5 c005      	RJMP _0x2D
+0001b6 d123      	RCALL SUBOPT_0x1
+0001b7 39a0      	CPI  R26,LOW(0x190)
+0001b8 e0e1      	LDI  R30,HIGH(0x190)
+0001b9 07be      	CPC  R27,R30
+0001ba f008      	BRLO _0x2E
+                 _0x2D:
+0001bb c001      	RJMP _0x2C
+                 _0x2E:
+0001bc cff0      	RJMP _0x2B
+                 _0x2C:
+                 ; 0000 00C1 }
+0001bd 9508      	RET
+                 ; .FEND
+                 ;
+                 ;void reiniciaClave()
+                 ; 0000 00C4 {
+                 _reiniciaClave:
+                 ; .FSTART _reiniciaClave
+                 ; 0000 00C5    unsigned char i;
+                 ; 0000 00C6    for (i=0;i<4;i++)
+0001be 930a      	ST   -Y,R16
                  ;	i -> R16
-000186 e000      	LDI  R16,LOW(0)
-                 _0x24:
-000187 3004      	CPI  R16,4
-000188 f428      	BRSH _0x25
-                 ; 0000 00AA    {
-                 ; 0000 00AB       write_key[i]='0';
-000189 d109      	RCALL SUBOPT_0x2
-00018a e3a0      	LDI  R26,LOW(48)
-00018b 83a0      	STD  Z+0,R26
-                 ; 0000 00AC    }
-00018c 5f0f      	SUBI R16,-1
-00018d cff9      	RJMP _0x24
-                 _0x25:
-                 ; 0000 00AD }
-00018e 9109      	LD   R16,Y+
-00018f 9508      	RET
+0001bf e000      	LDI  R16,LOW(0)
+                 _0x30:
+0001c0 3004      	CPI  R16,4
+0001c1 f428      	BRSH _0x31
+                 ; 0000 00C7    {
+                 ; 0000 00C8       read_key[i]='0';
+0001c2 d11c      	RCALL SUBOPT_0x2
+0001c3 e3a0      	LDI  R26,LOW(48)
+0001c4 83a0      	STD  Z+0,R26
+                 ; 0000 00C9    }
+0001c5 5f0f      	SUBI R16,-1
+0001c6 cff9      	RJMP _0x30
+                 _0x31:
+                 ; 0000 00CA }
+                 _0x2080004:
+0001c7 9109      	LD   R16,Y+
+0001c8 9508      	RET
                  ; .FEND
                  ;
                  ;int comparaClave(){
-                 ; 0000 00AF int comparaClave(){
+                 ; 0000 00CC int comparaClave(){
                  _comparaClave:
                  ; .FSTART _comparaClave
-                 ; 0000 00B0    unsigned char i;
-                 ; 0000 00B1    unsigned int resultado = 1;
-                 ; 0000 00B2    for (i=0;i<4;i++)
-000190 d16c      	RCALL __SAVELOCR3
+                 ; 0000 00CD    unsigned char i;
+                 ; 0000 00CE    unsigned int resultado = 1;
+                 ; 0000 00CF    for (i=0;i<4;i++)
+0001c9 d176      	RCALL __SAVELOCR3
                  ;	i -> R16
                  ;	resultado -> R17,R18
                 +
-000191 e011     +LDI R17 , LOW ( 1 )
-000192 e020     +LDI R18 , HIGH ( 1 )
+0001ca e011     +LDI R17 , LOW ( 1 )
+0001cb e020     +LDI R18 , HIGH ( 1 )
                  	__GETWRN 17,18,1
-000193 e000      	LDI  R16,LOW(0)
-                 _0x27:
-000194 3004      	CPI  R16,4
-000195 f468      	BRSH _0x28
-                 ; 0000 00B3    {
-                 ; 0000 00B4      if(read_key[i] != write_key[i])
-000196 2fe0      	MOV  R30,R16
-000197 e0f0      	LDI  R31,0
-000198 5fe6      	SUBI R30,LOW(-_read_key)
-000199 4ffc      	SBCI R31,HIGH(-_read_key)
-00019a 81a0      	LD   R26,Z
-00019b d0f7      	RCALL SUBOPT_0x2
-00019c 81e0      	LD   R30,Z
-00019d 17ea      	CP   R30,R26
-00019e f011      	BREQ _0x29
-                 ; 0000 00B5         resultado = 0;
+0001cc e000      	LDI  R16,LOW(0)
+                 _0x33:
+0001cd 3004      	CPI  R16,4
+0001ce f468      	BRSH _0x34
+                 ; 0000 00D0    {
+                 ; 0000 00D1      if(read_key[i] != write_key[i])
+0001cf d10f      	RCALL SUBOPT_0x2
+0001d0 81a0      	LD   R26,Z
+0001d1 2fe0      	MOV  R30,R16
+0001d2 e0f0      	LDI  R31,0
+0001d3 5fe2      	SUBI R30,LOW(-_write_key)
+0001d4 4ffc      	SBCI R31,HIGH(-_write_key)
+0001d5 81e0      	LD   R30,Z
+0001d6 17ea      	CP   R30,R26
+0001d7 f011      	BREQ _0x35
+                 ; 0000 00D2         resultado = 0;
                 +
-00019f e010     +LDI R17 , LOW ( 0 )
-0001a0 e020     +LDI R18 , HIGH ( 0 )
+0001d8 e010     +LDI R17 , LOW ( 0 )
+0001d9 e020     +LDI R18 , HIGH ( 0 )
                  	__GETWRN 17,18,0
-                 ; 0000 00B6    }
-                 _0x29:
-0001a1 5f0f      	SUBI R16,-1
-0001a2 cff1      	RJMP _0x27
-                 _0x28:
-                 ; 0000 00B7    return resultado;
+                 ; 0000 00D3    }
+                 _0x35:
+0001da 5f0f      	SUBI R16,-1
+0001db cff1      	RJMP _0x33
+                 _0x34:
+                 ; 0000 00D4    return resultado;
                 +
-0001a3 2fe1     +MOV R30 , R17
-0001a4 2ff2     +MOV R31 , R18
+0001dc 2fe1     +MOV R30 , R17
+0001dd 2ff2     +MOV R31 , R18
                  	__GETW1R 17,18
-0001a5 d15c      	RCALL __LOADLOCR3
+                 _0x2080003:
+0001de d168      	RCALL __LOADLOCR3
                  _0x2080002:
-0001a6 9623      	ADIW R28,3
-0001a7 9508      	RET
-                 ; 0000 00B8 }
+0001df 9623      	ADIW R28,3
+0001e0 9508      	RET
+                 ; 0000 00D5 }
                  ; .FEND
                  ;
                  ;void esperaTeclaNoImprime()
-                 ; 0000 00BB {
+                 ; 0000 00D8 {
                  _esperaTeclaNoImprime:
                  ; .FSTART _esperaTeclaNoImprime
-                 ; 0000 00BC     //Espera a presionar tecla
-                 ; 0000 00BD     do{
-                 _0x2B:
-                 ; 0000 00BE         tecla=LeeTeclado();
-0001a8 df80      	RCALL _LeeTeclado
-0001a9 93e0 0301 	STS  _tecla,R30
-                 ; 0000 00BF     }while(tecla==0);
-0001ab 30e0      	CPI  R30,0
-0001ac f3d9      	BREQ _0x2B
-                 ; 0000 00C0     write_key[i] = tecla;
-0001ad d0ea      	RCALL SUBOPT_0x3
-                 ; 0000 00C1     //Espera a soltar tecla
-                 ; 0000 00C2     do{
-                 _0x2E:
-                 ; 0000 00C3         tecla=LeeTeclado();
-0001ae df7a      	RCALL _LeeTeclado
-0001af 93e0 0301 	STS  _tecla,R30
-                 ; 0000 00C4     }while(tecla!=0);
-0001b1 30e0      	CPI  R30,0
-0001b2 f7d9      	BRNE _0x2E
-                 ; 0000 00C5 }
-0001b3 9508      	RET
+                 ; 0000 00D9     //Espera a presionar tecla
+                 ; 0000 00DA     do{
+                 _0x37:
+                 ; 0000 00DB         tecla=LeeTeclado();
+0001e1 df62      	RCALL _LeeTeclado
+0001e2 93e0 0305 	STS  _tecla,R30
+                 ; 0000 00DC     }while(tecla==0);
+0001e4 30e0      	CPI  R30,0
+0001e5 f3d9      	BREQ _0x37
+                 ; 0000 00DD     write_key[i] = tecla;
+0001e6 d0fd      	RCALL SUBOPT_0x3
+                 ; 0000 00DE     //Espera a soltar tecla
+                 ; 0000 00DF     do{
+                 _0x3A:
+                 ; 0000 00E0         tecla=LeeTeclado();
+0001e7 df5c      	RCALL _LeeTeclado
+0001e8 93e0 0305 	STS  _tecla,R30
+                 ; 0000 00E1     }while(tecla!=0);
+0001ea 30e0      	CPI  R30,0
+0001eb f7d9      	BRNE _0x3A
+                 ; 0000 00E2 }
+0001ec 9508      	RET
                  ; .FEND
                  ;
                  ;void esperaTeclaImprime()
-                 ; 0000 00C8 {
+                 ; 0000 00E5 {
                  _esperaTeclaImprime:
                  ; .FSTART _esperaTeclaImprime
-                 ; 0000 00C9     //Espera a presionar tecla
-                 ; 0000 00CA     do{
-                 _0x31:
-                 ; 0000 00CB         tecla=LeeTeclado();
-0001b4 df74      	RCALL _LeeTeclado
-0001b5 93e0 0301 	STS  _tecla,R30
-                 ; 0000 00CC     }while(tecla==0);
-0001b7 30e0      	CPI  R30,0
-0001b8 f3d9      	BREQ _0x31
-                 ; 0000 00CD     write_key[i] = tecla;
-0001b9 d0de      	RCALL SUBOPT_0x3
-                 ; 0000 00CE     CharLCD(tecla);
-0001ba 91a0 0301 	LDS  R26,_tecla
-0001bc df2c      	RCALL _CharLCD
-                 ; 0000 00CF     //Espera a soltar tecla
-                 ; 0000 00D0     do{
-                 _0x34:
-                 ; 0000 00D1         tecla=LeeTeclado();
-0001bd df6b      	RCALL _LeeTeclado
-0001be 93e0 0301 	STS  _tecla,R30
-                 ; 0000 00D2     }while(tecla!=0);
-0001c0 30e0      	CPI  R30,0
-0001c1 f7d9      	BRNE _0x34
-                 ; 0000 00D3 }
-0001c2 9508      	RET
+                 ; 0000 00E6     //Espera a presionar tecla
+                 ; 0000 00E7     do{
+                 _0x3D:
+                 ; 0000 00E8         tecla=LeeTeclado();
+0001ed df56      	RCALL _LeeTeclado
+0001ee 93e0 0305 	STS  _tecla,R30
+                 ; 0000 00E9 
+                 ; 0000 00EA     }while(tecla==0);
+0001f0 30e0      	CPI  R30,0
+0001f1 f3d9      	BREQ _0x3D
+                 ; 0000 00EB     write_key[i] = tecla;
+0001f2 d0f1      	RCALL SUBOPT_0x3
+                 ; 0000 00EC     CharLCD(tecla);
+0001f3 91a0 0305 	LDS  R26,_tecla
+0001f5 def0      	RCALL _CharLCD
+                 ; 0000 00ED     //Espera a soltar tecla
+                 ; 0000 00EE     do{
+                 _0x40:
+                 ; 0000 00EF         tecla=LeeTeclado();
+0001f6 df4d      	RCALL _LeeTeclado
+0001f7 93e0 0305 	STS  _tecla,R30
+                 ; 0000 00F0     }while(tecla!=0);
+0001f9 30e0      	CPI  R30,0
+0001fa f7d9      	BRNE _0x40
+                 ; 0000 00F1 }
+0001fb 9508      	RET
                  ; .FEND
                  ;
                  ;
+                 ;void esperaTeclaImprimeConSensor()
+                 ; 0000 00F5 {
+                 _esperaTeclaImprimeConSensor:
+                 ; .FSTART _esperaTeclaImprimeConSensor
+                 ; 0000 00F6     //Espera a presionar tecla
+                 ; 0000 00F7     do{
+                 _0x43:
+                 ; 0000 00F8         tecla=LeeTeclado();
+0001fc df47      	RCALL _LeeTeclado
+0001fd 93e0 0305 	STS  _tecla,R30
+                 ; 0000 00F9         //Activar sensor
+                 ; 0000 00FA         trigger_s();
+0001ff dfa0      	RCALL _trigger_s
+                 ; 0000 00FB         echo_s();
+000200 dfa5      	RCALL _echo_s
+                 ; 0000 00FC         //Si detecta algo a 20 cm o menos, activa sonido y led
+                 ; 0000 00FD         if(distancia <= 20 || estado == 1)
+000201 d0d8      	RCALL SUBOPT_0x1
+000202 9755      	SBIW R26,21
+000203 f030      	BRLO _0x46
+000204 91a0 0303 	LDS  R26,_estado
+000206 91b0 0304 	LDS  R27,_estado+1
+000208 9711      	SBIW R26,1
+000209 f441      	BRNE _0x45
+                 _0x46:
+                 ; 0000 00FE         {
+                 ; 0000 00FF             PORTB.2 = 1;
+00020a 9a2a      	SBI  0x5,2
+                 ; 0000 0100             PORTD.7 = 1;
+00020b 9a5f      	SBI  0xB,7
+                 ; 0000 0101             estado = 1;
+00020c e0e1      	LDI  R30,LOW(1)
+00020d e0f0      	LDI  R31,HIGH(1)
+00020e 93e0 0303 	STS  _estado,R30
+000210 93f0 0304 	STS  _estado+1,R31
+                 ; 0000 0102         }
+                 ; 0000 0103 
+                 ; 0000 0104     }while(tecla==0);
+                 _0x45:
+000212 91e0 0305 	LDS  R30,_tecla
+000214 30e0      	CPI  R30,0
+000215 f331      	BREQ _0x43
+                 ; 0000 0105     write_key[i] = tecla;
+000216 d0cd      	RCALL SUBOPT_0x3
+                 ; 0000 0106     CharLCD(tecla);
+000217 91a0 0305 	LDS  R26,_tecla
+000219 decc      	RCALL _CharLCD
+                 ; 0000 0107     //Espera a soltar tecla
+                 ; 0000 0108     do{
+                 _0x4D:
+                 ; 0000 0109         tecla=LeeTeclado();
+00021a df29      	RCALL _LeeTeclado
+00021b 93e0 0305 	STS  _tecla,R30
+                 ; 0000 010A     }while(tecla!=0);
+00021d 30e0      	CPI  R30,0
+00021e f7d9      	BRNE _0x4D
+                 ; 0000 010B }
+00021f 9508      	RET
+                 ; .FEND
+                 ;
                  ;void main(void)
-                 ; 0000 00D7 {
+                 ; 0000 010E {
                  _main:
                  ; .FSTART _main
-                 ; 0000 00D8     //Trabaje a 8MHz
-                 ; 0000 00D9     CLKPR=0x80;
-0001c3 e8e0      	LDI  R30,LOW(128)
-0001c4 93e0 0061 	STS  97,R30
-                 ; 0000 00DA     CLKPR=0x00;
-0001c6 e0e0      	LDI  R30,LOW(0)
-0001c7 93e0 0061 	STS  97,R30
-                 ; 0000 00DB 
-                 ; 0000 00DC     // Setup LCD Y Keypad
-                 ; 0000 00DD     SetupLCD();
-0001c9 ded1      	RCALL _SetupLCD
-                 ; 0000 00DE     SetupKeypad();
-0001ca df56      	RCALL _SetupKeypad
-                 ; 0000 00DF 
-                 ; 0000 00E0     // Leer clave de eeprom
-                 ; 0000 00E1     ReseteoClaves();
-0001cb dfb9      	RCALL _ReseteoClaves
-                 ; 0000 00E2     eeprom_read_block(read_key,0,sizeof(read_key));
-0001cc d0d5      	RCALL SUBOPT_0x4
-                 ; 0000 00E3     addr = 0;
-0001cd 93e0 0308 	STS  _addr,R30
-0001cf 93e0 0309 	STS  _addr+1,R30
-                 ; 0000 00E4 
-                 ; 0000 00E5     while (1)
-                 _0x36:
-                 ; 0000 00E6     {
-                 ; 0000 00E7         switch(estatus){
-0001d1 91e0 0306 	LDS  R30,_estatus
-0001d3 91f0 0307 	LDS  R31,_estatus+1
-                 ; 0000 00E8             // Estatus inicial, aquí se debe checar estatus del sensor
-                 ; 0000 00E9             case 1:
-0001d5 30e1      	CPI  R30,LOW(0x1)
-0001d6 e0a0      	LDI  R26,HIGH(0x1)
-0001d7 07fa      	CPC  R31,R26
-0001d8 f4f9      	BRNE _0x3C
-                 ; 0000 00EA                 MoveCursor(0,0);
-0001d9 d0d5      	RCALL SUBOPT_0x5
-                 ; 0000 00EB                 StringLCD("ALARMA ACTIVA");
+                 ; 0000 010F     // Micro a 8MHz
+                 ; 0000 0110     CLKPR=0x80;
+000220 e8e0      	LDI  R30,LOW(128)
+000221 93e0 0061 	STS  97,R30
+                 ; 0000 0111     CLKPR=0;
+000223 e0e0      	LDI  R30,LOW(0)
+000224 93e0 0061 	STS  97,R30
+                 ; 0000 0112 
+                 ; 0000 0113     SetupLCD();
+000226 de74      	RCALL _SetupLCD
+                 ; 0000 0114     SetupKeypad();
+000227 df14      	RCALL _SetupKeypad
+                 ; 0000 0115 
+                 ; 0000 0116     PORTB.1 = 1; //PC1 entrada pull-up para echo
+000228 9a29      	SBI  0x5,1
+                 ; 0000 0117     DDRB.0 = 1;  //PC0 salida para trigger
+000229 9a20      	SBI  0x4,0
+                 ; 0000 0118     DDRD.7 = 1;  //PD7 salida para bocina
+00022a 9a57      	SBI  0xA,7
+                 ; 0000 0119     DDRB.2 = 1;  //PB2 salida para led
+00022b 9a22      	SBI  0x4,2
+                 ; 0000 011A 
+                 ; 0000 011B     // Lectura inicial eeprom y configuracion si aplica
+                 ; 0000 011C     eeprom_read_block((const void*)read_key , (eeprom void*)45, 4);
+00022c d0c1      	RCALL SUBOPT_0x4
+                 ; 0000 011D     setting = eeprom_read_byte((uint8_t*)45);
+00022d e2ad      	LDI  R26,LOW(45)
+00022e e0b0      	LDI  R27,HIGH(45)
+00022f d127      	RCALL __EEPROMRDB
+000230 e0f0      	LDI  R31,0
+000231 93e0 0312 	STS  _setting,R30
+000233 93f0 0313 	STS  _setting+1,R31
+                 ; 0000 011E     if(setting == 0xff) {
+000235 91a0 0312 	LDS  R26,_setting
+000237 91b0 0313 	LDS  R27,_setting+1
+000239 3faf      	CPI  R26,LOW(0xFF)
+00023a e0e0      	LDI  R30,HIGH(0xFF)
+00023b 07be      	CPC  R27,R30
+00023c f409      	BRNE _0x57
+                 ; 0000 011F         reiniciaClave();
+00023d df80      	RCALL _reiniciaClave
+                 ; 0000 0120     }
+                 ; 0000 0121 
+                 ; 0000 0122     while (1)
+                 _0x57:
+                 _0x58:
+                 ; 0000 0123         {
+                 ; 0000 0124 
+                 ; 0000 0125             switch(estatus)
+00023e 91e0 0308 	LDS  R30,_estatus
+000240 91f0 0309 	LDS  R31,_estatus+1
+                 ; 0000 0126             {
+                 ; 0000 0127                 // Estatus inicial, checar sensor
+                 ; 0000 0128                 case 1:
+000242 30e1      	CPI  R30,LOW(0x1)
+000243 e0a0      	LDI  R26,HIGH(0x1)
+000244 07fa      	CPC  R31,R26
+000245 f4b1      	BRNE _0x5E
+                 ; 0000 0129                     MoveCursor(1,0);
+000246 d0b2      	RCALL SUBOPT_0x5
+                 ; 0000 012A                     StringLCD("ALARMA ACTIVA");
                 +
-0001da e8a8     +LDI R26 , LOW ( 2 * _0x0 + ( 0 ) )
-0001db e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 0 ) )
+000247 e8a8     +LDI R26 , LOW ( 2 * _0x0 + ( 0 ) )
+000248 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 0 ) )
                  	__POINTW2FN _0x0,0
-0001dc d0d6      	RCALL SUBOPT_0x6
-                 ; 0000 00EC                 MoveCursor(0,1);
-                 ; 0000 00ED                 StringLCD("CLAVE: ");
-                 ; 0000 00EE                 MoveCursor(7+i,1);
-                 ; 0000 00EF 
-                 ; 0000 00F0                 esperaTeclaImprime();
-                 ; 0000 00F1 
-                 ; 0000 00F2                 i++;
-                 ; 0000 00F3 
-                 ; 0000 00F4                 // Si ya ingreso clave de 4 digitos
-                 ; 0000 00F5                 if(i == 4){
-0001dd f4c9      	BRNE _0x3D
-                 ; 0000 00F6                     if(comparaClave() == 1){
-0001de d0f0      	RCALL SUBOPT_0x7
-0001df f411      	BRNE _0x3E
-                 ; 0000 00F7                         intentos = 0;
-0001e0 d0f3      	RCALL SUBOPT_0x8
-                 ; 0000 00F8                         estatus = 2;
-0001e1 c00f      	RJMP _0x4C
-                 ; 0000 00F9                     }
-                 ; 0000 00FA                     else{
-                 _0x3E:
-                 ; 0000 00FB                         intentos++;
-0001e2 e0a4      	LDI  R26,LOW(_intentos)
-0001e3 e0b3      	LDI  R27,HIGH(_intentos)
-0001e4 91ed      	LD   R30,X+
-0001e5 91fd      	LD   R31,X+
-0001e6 9631      	ADIW R30,1
-0001e7 93fe      	ST   -X,R31
-0001e8 93ee      	ST   -X,R30
-                 ; 0000 00FC                         if(intentos >= 3){
-0001e9 91a0 0304 	LDS  R26,_intentos
-0001eb 91b0 0305 	LDS  R27,_intentos+1
-0001ed 9713      	SBIW R26,3
-0001ee f030      	BRLO _0x40
-                 ; 0000 00FD                             // Hacer sonar alarma, prender led
-                 ; 0000 00FE                             estatus = 4;
-0001ef e0e4      	LDI  R30,LOW(4)
-0001f0 e0f0      	LDI  R31,HIGH(4)
-                 _0x4C:
-0001f1 93e0 0306 	STS  _estatus,R30
-0001f3 93f0 0307 	STS  _estatus+1,R31
-                 ; 0000 00FF                         }
-                 ; 0000 0100                     }
-                 _0x40:
-                 ; 0000 0101                     EraseLCD();
-0001f5 df09      	RCALL _EraseLCD
-                 ; 0000 0102                     i = 0;
-0001f6 d0e5      	RCALL SUBOPT_0x9
-                 ; 0000 0103                 }
-                 ; 0000 0104 
-                 ; 0000 0105                 break;
-                 _0x3D:
-0001f7 c057      	RJMP _0x3B
-                 ; 0000 0106 
-                 ; 0000 0107             //Estatus de alarma desactivada, se puede volver a activar la alarma
-                 ; 0000 0108             // o se puede cambiar la clave
-                 ; 0000 0109             case 2:
-                 _0x3C:
-0001f8 30e2      	CPI  R30,LOW(0x2)
-0001f9 e0a0      	LDI  R26,HIGH(0x2)
-0001fa 07fa      	CPC  R31,R26
-0001fb f511      	BRNE _0x41
-                 ; 0000 010A                 MoveCursor(5,0);
-0001fc e0e5      	LDI  R30,LOW(5)
-0001fd 93ea      	ST   -Y,R30
-0001fe e0a0      	LDI  R26,LOW(0)
-0001ff df02      	RCALL _MoveCursor
-                 ; 0000 010B                 StringLCD("ALARMA");
-                +
-000200 e9ae     +LDI R26 , LOW ( 2 * _0x0 + ( 22 ) )
-000201 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 22 ) )
-                 	__POINTW2FN _0x0,22
-000202 deeb      	RCALL _StringLCD
-                 ; 0000 010C                 MoveCursor(2,1);
-000203 e0e2      	LDI  R30,LOW(2)
-000204 93ea      	ST   -Y,R30
-000205 e0a1      	LDI  R26,LOW(1)
-000206 defb      	RCALL _MoveCursor
-                 ; 0000 010D                 StringLCD("DESACTIVADA");
-                +
-000207 eaa5     +LDI R26 , LOW ( 2 * _0x0 + ( 29 ) )
-000208 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 29 ) )
-                 	__POINTW2FN _0x0,29
-000209 dee4      	RCALL _StringLCD
-                 ; 0000 010E 
-                 ; 0000 010F                 esperaTeclaNoImprime();
-00020a df9d      	RCALL _esperaTeclaNoImprime
-                 ; 0000 0110 
-                 ; 0000 0111                 if(write_key[i] == '*'){
-00020b d0d6      	RCALL SUBOPT_0xA
-00020c 32aa      	CPI  R26,LOW(0x2A)
-00020d f421      	BRNE _0x42
-                 ; 0000 0112                     // Estatus para activar alarma
-                 ; 0000 0113                     i = 0;
-00020e d0cd      	RCALL SUBOPT_0x9
-                 ; 0000 0114                     estatus = 1;
-00020f e0e1      	LDI  R30,LOW(1)
-000210 e0f0      	LDI  R31,HIGH(1)
-000211 c006      	RJMP _0x4D
-                 ; 0000 0115                     EraseLCD();
-                 ; 0000 0116                 }else if(write_key[i] == '#'){
-                 _0x42:
-000212 d0cf      	RCALL SUBOPT_0xA
-000213 32a3      	CPI  R26,LOW(0x23)
-000214 f441      	BRNE _0x44
-                 ; 0000 0117                     // Estatus para cambiar clave
-                 ; 0000 0118                     i = 0;
-000215 d0c6      	RCALL SUBOPT_0x9
-                 ; 0000 0119                     estatus = 3;
-000216 e0e3      	LDI  R30,LOW(3)
-000217 e0f0      	LDI  R31,HIGH(3)
-                 _0x4D:
-000218 93e0 0306 	STS  _estatus,R30
-00021a 93f0 0307 	STS  _estatus+1,R31
-                 ; 0000 011A                     EraseLCD();
-00021c dee2      	RCALL _EraseLCD
-                 ; 0000 011B                 }
-                 ; 0000 011C                 break;
-                 _0x44:
-00021d c031      	RJMP _0x3B
-                 ; 0000 011D 
-                 ; 0000 011E             // Estatus para cambiar clave
-                 ; 0000 011F             case 3:
-                 _0x41:
-00021e 30e3      	CPI  R30,LOW(0x3)
-00021f e0a0      	LDI  R26,HIGH(0x3)
-000220 07fa      	CPC  R31,R26
-000221 f4f1      	BRNE _0x45
-                 ; 0000 0120                 MoveCursor(1,0);
-000222 e0e1      	LDI  R30,LOW(1)
-000223 93ea      	ST   -Y,R30
-000224 e0a0      	LDI  R26,LOW(0)
-000225 dedc      	RCALL _MoveCursor
-                 ; 0000 0121                 StringLCD("CAMBIAR CLAVE");
-                +
-000226 eba1     +LDI R26 , LOW ( 2 * _0x0 + ( 41 ) )
-000227 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 41 ) )
-                 	__POINTW2FN _0x0,41
-000228 d08a      	RCALL SUBOPT_0x6
-                 ; 0000 0122                 MoveCursor(0,1);
-                 ; 0000 0123                 StringLCD("CLAVE: ");
-                 ; 0000 0124                 MoveCursor(7+i,1);
-                 ; 0000 0125 
-                 ; 0000 0126                 esperaTeclaImprime();
-                 ; 0000 0127 
-                 ; 0000 0128                 i++;
-                 ; 0000 0129 
-                 ; 0000 012A                 // Si ya ingreso clave de 4 digitos
-                 ; 0000 012B                 if(i == 4){
-000229 f4a9      	BRNE _0x46
-                 ; 0000 012C                     // Escribir y leer valor de eeprom y cambiar a estatus
-                 ; 0000 012D                     // de alarma activa
-                 ; 0000 012E                     eeprom_write_block(write_key,0,sizeof(write_key));
-00022a e0ee      	LDI  R30,LOW(_write_key)
-00022b e0f3      	LDI  R31,HIGH(_write_key)
-00022c 93fa      	ST   -Y,R31
-00022d 93ea      	ST   -Y,R30
-00022e e0e0      	LDI  R30,LOW(0)
-00022f e0f0      	LDI  R31,HIGH(0)
-000230 93fa      	ST   -Y,R31
-000231 93ea      	ST   -Y,R30
-000232 e0a4      	LDI  R26,LOW(4)
-000233 e0b0      	LDI  R27,0
-000234 d02e      	RCALL _eeprom_write_block
-                 ; 0000 012F                     eeprom_read_block(read_key,0,sizeof(read_key));
-000235 d06c      	RCALL SUBOPT_0x4
-                 ; 0000 0130                     intentos = 0;
-000236 93e0 0304 	STS  _intentos,R30
-000238 93e0 0305 	STS  _intentos+1,R30
-                 ; 0000 0131                     estatus = 1;
-00023a e0e1      	LDI  R30,LOW(1)
-00023b e0f0      	LDI  R31,HIGH(1)
-00023c d0ad      	RCALL SUBOPT_0xB
-                 ; 0000 0132                     i = 0;
-00023d d09e      	RCALL SUBOPT_0x9
-                 ; 0000 0133                     EraseLCD();
-00023e dec0      	RCALL _EraseLCD
-                 ; 0000 0134                 }
-                 ; 0000 0135                 break;
-                 _0x46:
-00023f c00f      	RJMP _0x3B
-                 ; 0000 0136 
-                 ; 0000 0137             // Estatus de alarma activada, usuario ingreso clave incorrectamente
-                 ; 0000 0138             // 3 o más ocasiones o el sensor detecto algo
-                 ; 0000 0139             case 4:
-                 _0x45:
-000240 30e4      	CPI  R30,LOW(0x4)
-000241 e0a0      	LDI  R26,HIGH(0x4)
-000242 07fa      	CPC  R31,R26
-000243 f459      	BRNE _0x3B
-                 ; 0000 013A                 MoveCursor(0,0);
-000244 d06a      	RCALL SUBOPT_0x5
-                 ; 0000 013B                 StringLCD("ALARMA ACTIVADA");
-                +
-000245 ebaf     +LDI R26 , LOW ( 2 * _0x0 + ( 55 ) )
-000246 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 55 ) )
-                 	__POINTW2FN _0x0,55
-000247 d06b      	RCALL SUBOPT_0x6
-                 ; 0000 013C                 MoveCursor(0,1);
-                 ; 0000 013D                 StringLCD("CLAVE: ");
-                 ; 0000 013E                 MoveCursor(7+i,1);
-                 ; 0000 013F 
-                 ; 0000 0140                 esperaTeclaImprime();
+000249 d0b3      	RCALL SUBOPT_0x6
+                 ; 0000 012B                     MoveCursor(0,1);
+                 ; 0000 012C                     StringLCD("CLAVE: ");
+                 ; 0000 012D                     MoveCursor(7+i,1);
+                 ; 0000 012E 
+                 ; 0000 012F                     esperaTeclaImprimeConSensor();
+00024a dfb1      	RCALL _esperaTeclaImprimeConSensor
+                 ; 0000 0130                     i++;
+00024b e0a6      	LDI  R26,LOW(_i)
+00024c e0b3      	LDI  R27,HIGH(_i)
+00024d d086      	RCALL SUBOPT_0x0
+                 ; 0000 0131 
+                 ; 0000 0132                     //Si ya ingreso clave de 4 digitos
+                 ; 0000 0133                     if(i == 4){
+00024e d0bc      	RCALL SUBOPT_0x7
+00024f f459      	BRNE _0x5F
+                 ; 0000 0134                         if(comparaClave() == 1){
+000250 df78      	RCALL _comparaClave
+000251 30e1      	CPI  R30,LOW(0x1)
+000252 e0a0      	LDI  R26,HIGH(0x1)
+000253 07fa      	CPC  R31,R26
+000254 f421      	BRNE _0x60
+                 ; 0000 0135                             estado = 0;
+000255 d0bb      	RCALL SUBOPT_0x8
+                 ; 0000 0136                             estatus = 2;
+000256 e0e2      	LDI  R30,LOW(2)
+000257 e0f0      	LDI  R31,HIGH(2)
+000258 d0be      	RCALL SUBOPT_0x9
+                 ; 0000 0137                         }
+                 ; 0000 0138                         EraseLCD();
+                 _0x60:
+000259 debb      	RCALL _EraseLCD
+                 ; 0000 0139                         i = 0;
+00025a d0c1      	RCALL SUBOPT_0xA
+                 ; 0000 013A                     }
+                 ; 0000 013B 
+                 ; 0000 013C                     break;
+                 _0x5F:
+00025b c054      	RJMP _0x5D
+                 ; 0000 013D 
+                 ; 0000 013E                 //Estatus de alarma desactivada, se puede volver a activar la alarma
+                 ; 0000 013F                 // o se puede cambiar la clave
+                 ; 0000 0140                 case 2:
+                 _0x5E:
+00025c 30e2      	CPI  R30,LOW(0x2)
+00025d e0a0      	LDI  R26,HIGH(0x2)
+00025e 07fa      	CPC  R31,R26
+00025f f571      	BRNE _0x61
                  ; 0000 0141 
-                 ; 0000 0142                 i++;
-                 ; 0000 0143 
-                 ; 0000 0144                 // Si ya ingreso clave de 4 digitos
-                 ; 0000 0145                 if(i == 4){
-000248 f431      	BRNE _0x48
-                 ; 0000 0146                     if(comparaClave() == 1){
-000249 d085      	RCALL SUBOPT_0x7
-00024a f411      	BRNE _0x49
-                 ; 0000 0147                         // Apagar led y alarma
-                 ; 0000 0148                         // Cambiar a estatus de alarma
-                 ; 0000 0149                         intentos = 0;
-00024b d088      	RCALL SUBOPT_0x8
-                 ; 0000 014A                         estatus = 2;
-00024c d09d      	RCALL SUBOPT_0xB
-                 ; 0000 014B                     }
-                 ; 0000 014C                     i = 0;
-                 _0x49:
-00024d d08e      	RCALL SUBOPT_0x9
-                 ; 0000 014D                     EraseLCD();
-00024e deb0      	RCALL _EraseLCD
-                 ; 0000 014E                 }
-                 ; 0000 014F                 break;
-                 _0x48:
-                 ; 0000 0150         }
-                 _0x3B:
-                 ; 0000 0151     }
-00024f cf81      	RJMP _0x36
-                 ; 0000 0152 }
-                 _0x4A:
-000250 cfff      	RJMP _0x4A
+                 ; 0000 0142                     //Desactivar alarma porque ingreso contraseña correcta
+                 ; 0000 0143                     PORTB.2 = 0;
+000260 982a      	CBI  0x5,2
+                 ; 0000 0144                     PORTD.7 = 0;
+000261 985f      	CBI  0xB,7
+                 ; 0000 0145                     estado = 0;
+000262 d0ae      	RCALL SUBOPT_0x8
+                 ; 0000 0146 
+                 ; 0000 0147                     MoveCursor(5,0);
+000263 e0e5      	LDI  R30,LOW(5)
+000264 93ea      	ST   -Y,R30
+000265 e0a0      	LDI  R26,LOW(0)
+000266 deb1      	RCALL _MoveCursor
+                 ; 0000 0148                     StringLCD("ALARMA");
+                +
+000267 e9ae     +LDI R26 , LOW ( 2 * _0x0 + ( 22 ) )
+000268 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 22 ) )
+                 	__POINTW2FN _0x0,22
+000269 de97      	RCALL _StringLCD
+                 ; 0000 0149                     MoveCursor(2,1);
+00026a e0e2      	LDI  R30,LOW(2)
+00026b 93ea      	ST   -Y,R30
+00026c e0a1      	LDI  R26,LOW(1)
+00026d deaa      	RCALL _MoveCursor
+                 ; 0000 014A                     StringLCD("DESACTIVADA");
+                +
+00026e eaa5     +LDI R26 , LOW ( 2 * _0x0 + ( 29 ) )
+00026f e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 29 ) )
+                 	__POINTW2FN _0x0,29
+000270 de90      	RCALL _StringLCD
+                 ; 0000 014B 
+                 ; 0000 014C                     esperaTeclaNoImprime();
+000271 df6f      	RCALL _esperaTeclaNoImprime
+                 ; 0000 014D 
+                 ; 0000 014E                     if(write_key[i] == '*'){
+000272 d0af      	RCALL SUBOPT_0xB
+000273 32aa      	CPI  R26,LOW(0x2A)
+000274 f481      	BRNE _0x66
+                 ; 0000 014F                         // Estatus para activar alarma
+                 ; 0000 0150                         i = 0;
+000275 d0a6      	RCALL SUBOPT_0xA
+                 ; 0000 0151                         estatus = 1;
+000276 e0e1      	LDI  R30,LOW(1)
+000277 e0f0      	LDI  R31,HIGH(1)
+000278 d09e      	RCALL SUBOPT_0x9
+                 ; 0000 0152                         EraseLCD();
+000279 de9b      	RCALL _EraseLCD
+                 ; 0000 0153                         //Delay para que el usuario corra
+                 ; 0000 0154                         MoveCursor(0,0);
+00027a e0e0      	LDI  R30,LOW(0)
+00027b 93ea      	ST   -Y,R30
+00027c e0a0      	LDI  R26,LOW(0)
+00027d de9a      	RCALL _MoveCursor
+                 ; 0000 0155                         StringLCD("ALARMA ACTIVADA");
+                +
+00027e eba1     +LDI R26 , LOW ( 2 * _0x0 + ( 41 ) )
+00027f e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 41 ) )
+                 	__POINTW2FN _0x0,41
+000280 de80      	RCALL _StringLCD
+                 ; 0000 0156                         delay_ms(3000);
+000281 eba8      	LDI  R26,LOW(3000)
+000282 e0bb      	LDI  R27,HIGH(3000)
+000283 d0f0      	RCALL _delay_ms
+                 ; 0000 0157                         EraseLCD();
+000284 c007      	RJMP _0x6D
+                 ; 0000 0158 
+                 ; 0000 0159                     }else if(write_key[i] == '#'){
+                 _0x66:
+000285 d09c      	RCALL SUBOPT_0xB
+000286 32a3      	CPI  R26,LOW(0x23)
+000287 f429      	BRNE _0x68
+                 ; 0000 015A                         // Estatus para cambiar clave
+                 ; 0000 015B                         i = 0;
+000288 d093      	RCALL SUBOPT_0xA
+                 ; 0000 015C                         estatus = 3;
+000289 e0e3      	LDI  R30,LOW(3)
+00028a e0f0      	LDI  R31,HIGH(3)
+00028b d08b      	RCALL SUBOPT_0x9
+                 ; 0000 015D                         EraseLCD();
+                 _0x6D:
+00028c de88      	RCALL _EraseLCD
+                 ; 0000 015E                     }
+                 ; 0000 015F                     break;
+                 _0x68:
+00028d c022      	RJMP _0x5D
+                 ; 0000 0160 
+                 ; 0000 0161                 // Estatus para cambiar clave
+                 ; 0000 0162                 case 3:
+                 _0x61:
+00028e 30e3      	CPI  R30,LOW(0x3)
+00028f e0a0      	LDI  R26,HIGH(0x3)
+000290 07fa      	CPC  R31,R26
+000291 f4f1      	BRNE _0x5D
+                 ; 0000 0163                     MoveCursor(1,0);
+000292 d066      	RCALL SUBOPT_0x5
+                 ; 0000 0164                     StringLCD("CAMBIAR CLAVE");
+                +
+000293 eca1     +LDI R26 , LOW ( 2 * _0x0 + ( 57 ) )
+000294 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 57 ) )
+                 	__POINTW2FN _0x0,57
+000295 d067      	RCALL SUBOPT_0x6
+                 ; 0000 0165                     MoveCursor(0,1);
+                 ; 0000 0166                     StringLCD("CLAVE: ");
+                 ; 0000 0167                     MoveCursor(7+i,1);
+                 ; 0000 0168 
+                 ; 0000 0169                     esperaTeclaImprime();
+000296 df56      	RCALL _esperaTeclaImprime
+                 ; 0000 016A 
+                 ; 0000 016B                     i++;
+000297 e0a6      	LDI  R26,LOW(_i)
+000298 e0b3      	LDI  R27,HIGH(_i)
+000299 d03a      	RCALL SUBOPT_0x0
+                 ; 0000 016C 
+                 ; 0000 016D                     // Si ya ingreso clave de 4 digitos
+                 ; 0000 016E                     if(i == 4){
+00029a d070      	RCALL SUBOPT_0x7
+00029b f4a1      	BRNE _0x6A
+                 ; 0000 016F                         // Escribir y leer valor de eeprom y cambiar a estatus
+                 ; 0000 0170                         // de alarma activa
+                 ; 0000 0171                         eeprom_write_block(write_key,(eeprom void*)45,sizeof(write_key));
+00029c e0ee      	LDI  R30,LOW(_write_key)
+00029d e0f3      	LDI  R31,HIGH(_write_key)
+00029e 93fa      	ST   -Y,R31
+00029f 93ea      	ST   -Y,R30
+0002a0 e2ed      	LDI  R30,LOW(45)
+0002a1 e0f0      	LDI  R31,HIGH(45)
+0002a2 93fa      	ST   -Y,R31
+0002a3 93ea      	ST   -Y,R30
+0002a4 e0a4      	LDI  R26,LOW(4)
+0002a5 e0b0      	LDI  R27,0
+0002a6 d01b      	RCALL _eeprom_write_block
+                 ; 0000 0172                         eeprom_read_block(read_key,(eeprom void*)45,sizeof(read_key));
+0002a7 d046      	RCALL SUBOPT_0x4
+                 ; 0000 0173                         estatus = 1;
+0002a8 e0e1      	LDI  R30,LOW(1)
+0002a9 e0f0      	LDI  R31,HIGH(1)
+0002aa d06c      	RCALL SUBOPT_0x9
+                 ; 0000 0174                         i = 0;
+0002ab d070      	RCALL SUBOPT_0xA
+                 ; 0000 0175                         EraseLCD();
+0002ac de68      	RCALL _EraseLCD
+                 ; 0000 0176                         //Delay para que el usuario corra
+                 ; 0000 0177                         delay_ms(3000);
+0002ad eba8      	LDI  R26,LOW(3000)
+0002ae e0bb      	LDI  R27,HIGH(3000)
+0002af d0c4      	RCALL _delay_ms
+                 ; 0000 0178                     }
+                 ; 0000 0179                     break;
+                 _0x6A:
+                 ; 0000 017A             }
+                 _0x5D:
+                 ; 0000 017B 
+                 ; 0000 017C 
+                 ; 0000 017D 
+                 ; 0000 017E 
+                 ; 0000 017F 
+                 ; 0000 0180 
+                 ; 0000 0181         }
+0002b0 cf8d      	RJMP _0x58
+                 ; 0000 0182 }
+                 _0x6B:
+0002b1 cfff      	RJMP _0x6B
                  ; .FEND
                  	#ifndef __SLEEP_DEFINED__
                  	#endif
@@ -2182,60 +2349,56 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  	.CSEG
                  _eeprom_read_block:
                  ; .FSTART _eeprom_read_block
-000251 93ba      	ST   -Y,R27
-000252 93aa      	ST   -Y,R26
-000253 d0a8      	RCALL __SAVELOCR4
+0002b2 d077      	RCALL SUBOPT_0xC
                 +
-000254 8508     +LDD R16 , Y + 8
-000255 8519     +LDD R17 , Y + 8 + 1
-                 	__GETWRS 16,17,8
+0002b3 850a     +LDD R16 , Y + 10
+0002b4 851b     +LDD R17 , Y + 10 + 1
+                 	__GETWRS 16,17,10
                 +
-000256 812e     +LDD R18 , Y + 6
-000257 813f     +LDD R19 , Y + 6 + 1
-                 	__GETWRS 18,19,6
+0002b5 8528     +LDD R18 , Y + 8
+0002b6 8539     +LDD R19 , Y + 8 + 1
+                 	__GETWRS 18,19,8
                  _0x2020003:
-000258 d096      	RCALL SUBOPT_0xC
-000259 f041      	BREQ _0x2020005
-00025a 931f      	PUSH R17
-00025b 930f      	PUSH R16
-00025c d099      	RCALL SUBOPT_0xD
-00025d d0af      	RCALL __EEPROMRDB
-00025e 91af      	POP  R26
-00025f 91bf      	POP  R27
-000260 93ec      	ST   X,R30
-000261 cff6      	RJMP _0x2020003
+0002b7 d078      	RCALL SUBOPT_0xD
+0002b8 f041      	BREQ _0x2020005
+0002b9 931f      	PUSH R17
+0002ba 930f      	PUSH R16
+0002bb d07b      	RCALL SUBOPT_0xE
+0002bc d09a      	RCALL __EEPROMRDB
+0002bd 91af      	POP  R26
+0002be 91bf      	POP  R27
+0002bf 93ec      	ST   X,R30
+0002c0 cff6      	RJMP _0x2020003
                  _0x2020005:
-000262 c011      	RJMP _0x2080001
+0002c1 c00f      	RJMP _0x2080001
                  ; .FEND
                  _eeprom_write_block:
                  ; .FSTART _eeprom_write_block
-000263 93ba      	ST   -Y,R27
-000264 93aa      	ST   -Y,R26
-000265 d096      	RCALL __SAVELOCR4
+0002c2 d067      	RCALL SUBOPT_0xC
                 +
-000266 810e     +LDD R16 , Y + 6
-000267 811f     +LDD R17 , Y + 6 + 1
-                 	__GETWRS 16,17,6
+0002c3 8508     +LDD R16 , Y + 8
+0002c4 8519     +LDD R17 , Y + 8 + 1
+                 	__GETWRS 16,17,8
                 +
-000268 8528     +LDD R18 , Y + 8
-000269 8539     +LDD R19 , Y + 8 + 1
-                 	__GETWRS 18,19,8
+0002c5 852a     +LDD R18 , Y + 10
+0002c6 853b     +LDD R19 , Y + 10 + 1
+                 	__GETWRS 18,19,10
                  _0x2020006:
-00026a d084      	RCALL SUBOPT_0xC
-00026b f041      	BREQ _0x2020008
-00026c 931f      	PUSH R17
-00026d 930f      	PUSH R16
-00026e d087      	RCALL SUBOPT_0xD
-00026f 91ec      	LD   R30,X
-000270 91af      	POP  R26
-000271 91bf      	POP  R27
-000272 d0a6      	RCALL __EEPROMWRB
-000273 cff6      	RJMP _0x2020006
+0002c7 d068      	RCALL SUBOPT_0xD
+0002c8 f041      	BREQ _0x2020008
+0002c9 931f      	PUSH R17
+0002ca 930f      	PUSH R16
+0002cb d06b      	RCALL SUBOPT_0xE
+0002cc 91ec      	LD   R30,X
+0002cd 91af      	POP  R26
+0002ce 91bf      	POP  R27
+0002cf d093      	RCALL __EEPROMWRB
+0002d0 cff6      	RJMP _0x2020006
                  _0x2020008:
                  _0x2080001:
-000274 d08c      	RCALL __LOADLOCR4
-000275 962a      	ADIW R28,10
-000276 9508      	RET
+0002d1 d072      	RCALL __LOADLOCR6
+0002d2 962c      	ADIW R28,12
+0002d3 9508      	RET
                  ; .FEND
                  
                  	.CSEG
@@ -2245,272 +2408,262 @@ C:\Users\Marco Mancha\Documents\Microcontroladores\ProyectosCodeVision\ControlAc
                  	.DSEG
                  _cursor:
 000300           	.BYTE 0x1
+                 _distancia:
+000301           	.BYTE 0x2
+                 _estado:
+000303           	.BYTE 0x2
                  _tecla:
-000301           	.BYTE 0x1
+000305           	.BYTE 0x1
                  _i:
-000302           	.BYTE 0x2
-                 _intentos:
-000304           	.BYTE 0x2
-                 _estatus:
 000306           	.BYTE 0x2
-                 _addr:
+                 _estatus:
 000308           	.BYTE 0x2
                  _read_key:
 00030a           	.BYTE 0x4
                  _write_key:
 00030e           	.BYTE 0x4
+                 _setting:
+000312           	.BYTE 0x2
                  
                  	.CSEG
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:18 WORDS
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:6 WORDS
                  SUBOPT_0x0:
-000277 e0a2      	LDI  R26,LOW(2)
-000278 e0b0      	LDI  R27,0
-000279 d0b0      	RCALL _delay_ms
-00027a 81e9      	LDD  R30,Y+1
-00027b 7fe0      	ANDI R30,LOW(0xF0)
-00027c 2f0e      	MOV  R16,R30
-00027d 9502      	SWAP R16
-00027e 700f      	ANDI R16,0xF
-00027f 2fa0      	MOV  R26,R16
-000280 de48      	RCALL _SendDataBitsLCD
-000281 de44      	RCALL _PulseEn
-000282 81e9      	LDD  R30,Y+1
-000283 70ef      	ANDI R30,LOW(0xF)
-000284 2f0e      	MOV  R16,R30
-000285 2fa0      	MOV  R26,R16
-000286 de42      	RCALL _SendDataBitsLCD
-000287 e0a2      	LDI  R26,LOW(2)
-000288 e0b0      	LDI  R27,0
-000289 d0a0      	RCALL _delay_ms
-00028a de3b      	RCALL _PulseEn
-00028b 8108      	LDD  R16,Y+0
-00028c 9508      	RET
+0002d4 91ed      	LD   R30,X+
+0002d5 91fd      	LD   R31,X+
+0002d6 9631      	ADIW R30,1
+0002d7 93fe      	ST   -X,R31
+0002d8 93ee      	ST   -X,R30
+0002d9 9508      	RET
                  
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
                  SUBOPT_0x1:
-00028d 81a9      	LDD  R26,Y+1
-00028e 81ba      	LDD  R27,Y+1+1
-00028f e0f0      	LDI  R31,0
-000290 0fea      	ADD  R30,R26
-000291 1ffb      	ADC  R31,R27
-000292 9508      	RET
+0002da 91a0 0301 	LDS  R26,_distancia
+0002dc 91b0 0302 	LDS  R27,_distancia+1
+0002de 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
                  SUBOPT_0x2:
-000293 2fe0      	MOV  R30,R16
-000294 e0f0      	LDI  R31,0
-000295 5fe2      	SUBI R30,LOW(-_write_key)
-000296 4ffc      	SBCI R31,HIGH(-_write_key)
-000297 9508      	RET
+0002df 2fe0      	MOV  R30,R16
+0002e0 e0f0      	LDI  R31,0
+0002e1 5fe6      	SUBI R30,LOW(-_read_key)
+0002e2 4ffc      	SBCI R31,HIGH(-_read_key)
+0002e3 9508      	RET
                  
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:6 WORDS
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:14 WORDS
                  SUBOPT_0x3:
-000298 91e0 0302 	LDS  R30,_i
-00029a 91f0 0303 	LDS  R31,_i+1
-00029c 5fe2      	SUBI R30,LOW(-_write_key)
-00029d 4ffc      	SBCI R31,HIGH(-_write_key)
-00029e 91a0 0301 	LDS  R26,_tecla
-0002a0 83a0      	STD  Z+0,R26
-0002a1 9508      	RET
+0002e4 91e0 0306 	LDS  R30,_i
+0002e6 91f0 0307 	LDS  R31,_i+1
+0002e8 5fe2      	SUBI R30,LOW(-_write_key)
+0002e9 4ffc      	SBCI R31,HIGH(-_write_key)
+0002ea 91a0 0305 	LDS  R26,_tecla
+0002ec 83a0      	STD  Z+0,R26
+0002ed 9508      	RET
                  
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:9 WORDS
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:8 WORDS
                  SUBOPT_0x4:
-0002a2 e0ea      	LDI  R30,LOW(_read_key)
-0002a3 e0f3      	LDI  R31,HIGH(_read_key)
-0002a4 93fa      	ST   -Y,R31
-0002a5 93ea      	ST   -Y,R30
-0002a6 e0e0      	LDI  R30,LOW(0)
-0002a7 e0f0      	LDI  R31,HIGH(0)
-0002a8 93fa      	ST   -Y,R31
-0002a9 93ea      	ST   -Y,R30
-0002aa e0a4      	LDI  R26,LOW(4)
-0002ab e0b0      	LDI  R27,0
-0002ac dfa4      	RCALL _eeprom_read_block
-0002ad e0e0      	LDI  R30,LOW(0)
-0002ae 9508      	RET
+0002ee e0ea      	LDI  R30,LOW(_read_key)
+0002ef e0f3      	LDI  R31,HIGH(_read_key)
+0002f0 93fa      	ST   -Y,R31
+0002f1 93ea      	ST   -Y,R30
+0002f2 e2ed      	LDI  R30,LOW(45)
+0002f3 e0f0      	LDI  R31,HIGH(45)
+0002f4 93fa      	ST   -Y,R31
+0002f5 93ea      	ST   -Y,R30
+0002f6 e0a4      	LDI  R26,LOW(4)
+0002f7 e0b0      	LDI  R27,0
+0002f8 cfb9      	RJMP _eeprom_read_block
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
                  SUBOPT_0x5:
-0002af e0e0      	LDI  R30,LOW(0)
-0002b0 93ea      	ST   -Y,R30
-0002b1 e0a0      	LDI  R26,LOW(0)
-0002b2 ce4f      	RJMP _MoveCursor
+0002f9 e0e1      	LDI  R30,LOW(1)
+0002fa 93ea      	ST   -Y,R30
+0002fb e0a0      	LDI  R26,LOW(0)
+0002fc ce1b      	RJMP _MoveCursor
                  
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:50 WORDS
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:11 WORDS
                  SUBOPT_0x6:
-0002b3 de3a      	RCALL _StringLCD
-0002b4 e0e0      	LDI  R30,LOW(0)
-0002b5 93ea      	ST   -Y,R30
-0002b6 e0a1      	LDI  R26,LOW(1)
-0002b7 de4a      	RCALL _MoveCursor
+0002fd de03      	RCALL _StringLCD
+0002fe e0e0      	LDI  R30,LOW(0)
+0002ff 93ea      	ST   -Y,R30
+000300 e0a1      	LDI  R26,LOW(1)
+000301 de16      	RCALL _MoveCursor
                 +
-0002b8 e9a6     +LDI R26 , LOW ( 2 * _0x0 + ( 14 ) )
-0002b9 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 14 ) )
+000302 e9a6     +LDI R26 , LOW ( 2 * _0x0 + ( 14 ) )
+000303 e0b0     +LDI R27 , HIGH ( 2 * _0x0 + ( 14 ) )
                  	__POINTW2FN _0x0,14
-0002ba de33      	RCALL _StringLCD
-0002bb 91e0 0302 	LDS  R30,_i
-0002bd 5fe9      	SUBI R30,-LOW(7)
-0002be 93ea      	ST   -Y,R30
-0002bf e0a1      	LDI  R26,LOW(1)
-0002c0 de41      	RCALL _MoveCursor
-0002c1 def2      	RCALL _esperaTeclaImprime
-0002c2 e0a2      	LDI  R26,LOW(_i)
-0002c3 e0b3      	LDI  R27,HIGH(_i)
-0002c4 91ed      	LD   R30,X+
-0002c5 91fd      	LD   R31,X+
-0002c6 9631      	ADIW R30,1
-0002c7 93fe      	ST   -X,R31
-0002c8 93ee      	ST   -X,R30
-0002c9 91a0 0302 	LDS  R26,_i
-0002cb 91b0 0303 	LDS  R27,_i+1
-0002cd 9714      	SBIW R26,4
-0002ce 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-                 SUBOPT_0x7:
-0002cf dec0      	RCALL _comparaClave
-0002d0 30e1      	CPI  R30,LOW(0x1)
-0002d1 e0a0      	LDI  R26,HIGH(0x1)
-0002d2 07fa      	CPC  R31,R26
-0002d3 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
-                 SUBOPT_0x8:
-0002d4 e0e0      	LDI  R30,LOW(0)
-0002d5 93e0 0304 	STS  _intentos,R30
-0002d7 93e0 0305 	STS  _intentos+1,R30
-0002d9 e0e2      	LDI  R30,LOW(2)
-0002da e0f0      	LDI  R31,HIGH(2)
-0002db 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:14 WORDS
-                 SUBOPT_0x9:
-0002dc e0e0      	LDI  R30,LOW(0)
-0002dd 93e0 0302 	STS  _i,R30
-0002df 93e0 0303 	STS  _i+1,R30
-0002e1 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
-                 SUBOPT_0xA:
-0002e2 91e0 0302 	LDS  R30,_i
-0002e4 91f0 0303 	LDS  R31,_i+1
-0002e6 5fe2      	SUBI R30,LOW(-_write_key)
-0002e7 4ffc      	SBCI R31,HIGH(-_write_key)
-0002e8 81a0      	LD   R26,Z
-0002e9 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-                 SUBOPT_0xB:
-0002ea 93e0 0306 	STS  _estatus,R30
-0002ec 93f0 0307 	STS  _estatus+1,R31
-0002ee 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-                 SUBOPT_0xC:
-0002ef 81ec      	LDD  R30,Y+4
-0002f0 81fd      	LDD  R31,Y+4+1
-0002f1 9731      	SBIW R30,1
-0002f2 83ec      	STD  Y+4,R30
-0002f3 83fd      	STD  Y+4+1,R31
-0002f4 9631      	ADIW R30,1
-0002f5 9508      	RET
+000304 ddfc      	RCALL _StringLCD
+000305 91e0 0306 	LDS  R30,_i
+000307 5fe9      	SUBI R30,-LOW(7)
+000308 93ea      	ST   -Y,R30
+000309 e0a1      	LDI  R26,LOW(1)
+00030a ce0d      	RJMP _MoveCursor
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+                 SUBOPT_0x7:
+00030b 91a0 0306 	LDS  R26,_i
+00030d 91b0 0307 	LDS  R27,_i+1
+00030f 9714      	SBIW R26,4
+000310 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+                 SUBOPT_0x8:
+000311 e0e0      	LDI  R30,LOW(0)
+000312 93e0 0303 	STS  _estado,R30
+000314 93e0 0304 	STS  _estado+1,R30
+000316 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:7 WORDS
+                 SUBOPT_0x9:
+000317 93e0 0308 	STS  _estatus,R30
+000319 93f0 0309 	STS  _estatus+1,R31
+00031b 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:10 WORDS
+                 SUBOPT_0xA:
+00031c e0e0      	LDI  R30,LOW(0)
+00031d 93e0 0306 	STS  _i,R30
+00031f 93e0 0307 	STS  _i+1,R30
+000321 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
+                 SUBOPT_0xB:
+000322 91e0 0306 	LDS  R30,_i
+000324 91f0 0307 	LDS  R31,_i+1
+000326 5fe2      	SUBI R30,LOW(-_write_key)
+000327 4ffc      	SBCI R31,HIGH(-_write_key)
+000328 81a0      	LD   R26,Z
+000329 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+                 SUBOPT_0xC:
+00032a 93ba      	ST   -Y,R27
+00032b 93aa      	ST   -Y,R26
+00032c d010      	RCALL __SAVELOCR6
+                +
+00032d 8548     +LDD R20 , Y + 8
+00032e 8559     +LDD R21 , Y + 8 + 1
+                 	__GETWRS 20,21,8
+00032f 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
                  SUBOPT_0xD:
+000330 81ee      	LDD  R30,Y+6
+000331 81ff      	LDD  R31,Y+6+1
+000332 9731      	SBIW R30,1
+000333 83ee      	STD  Y+6,R30
+000334 83ff      	STD  Y+6+1,R31
+000335 9631      	ADIW R30,1
+000336 9508      	RET
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+                 SUBOPT_0xE:
                 +
-0002f6 5f0f     +SUBI R16 , LOW ( - 1 )
-0002f7 4f1f     +SBCI R17 , HIGH ( - 1 )
+000337 5f0f     +SUBI R16 , LOW ( - 1 )
+000338 4f1f     +SBCI R17 , HIGH ( - 1 )
                  	__ADDWRN 16,17,1
-0002f8 01d9      	MOVW R26,R18
+000339 01d9      	MOVW R26,R18
                 +
-0002f9 5f2f     +SUBI R18 , LOW ( - 1 )
-0002fa 4f3f     +SBCI R19 , HIGH ( - 1 )
+00033a 5f2f     +SUBI R18 , LOW ( - 1 )
+00033b 4f3f     +SBCI R19 , HIGH ( - 1 )
                  	__ADDWRN 18,19,1
-0002fb 9508      	RET
+00033c 9508      	RET
                  
                  ;RUNTIME LIBRARY
                  
                  	.CSEG
+                 __SAVELOCR6:
+00033d 935a      	ST   -Y,R21
+                 __SAVELOCR5:
+00033e 934a      	ST   -Y,R20
                  __SAVELOCR4:
-0002fc 933a      	ST   -Y,R19
+00033f 933a      	ST   -Y,R19
                  __SAVELOCR3:
-0002fd 932a      	ST   -Y,R18
+000340 932a      	ST   -Y,R18
                  __SAVELOCR2:
-0002fe 931a      	ST   -Y,R17
-0002ff 930a      	ST   -Y,R16
-000300 9508      	RET
+000341 931a      	ST   -Y,R17
+000342 930a      	ST   -Y,R16
+000343 9508      	RET
                  
+                 __LOADLOCR6:
+000344 815d      	LDD  R21,Y+5
+                 __LOADLOCR5:
+000345 814c      	LDD  R20,Y+4
                  __LOADLOCR4:
-000301 813b      	LDD  R19,Y+3
+000346 813b      	LDD  R19,Y+3
                  __LOADLOCR3:
-000302 812a      	LDD  R18,Y+2
+000347 812a      	LDD  R18,Y+2
                  __LOADLOCR2:
-000303 8119      	LDD  R17,Y+1
-000304 8108      	LD   R16,Y
-000305 9508      	RET
+000348 8119      	LDD  R17,Y+1
+000349 8108      	LD   R16,Y
+00034a 9508      	RET
                  
                  __INITLOCB:
                  __INITLOCW:
-000306 0fac      	ADD  R26,R28
-000307 1fbd      	ADC  R27,R29
+00034b 93af      	PUSH R26
+00034c 93bf      	PUSH R27
+00034d 01db      	MOVW R26,R22
+00034e 0fac      	ADD  R26,R28
+00034f 1fbd      	ADC  R27,R29
                  __INITLOC0:
-000308 9005      	LPM  R0,Z+
-000309 920d      	ST   X+,R0
-00030a 958a      	DEC  R24
-00030b f7e1      	BRNE __INITLOC0
-00030c 9508      	RET
+000350 9005      	LPM  R0,Z+
+000351 920d      	ST   X+,R0
+000352 958a      	DEC  R24
+000353 f7e1      	BRNE __INITLOC0
+000354 91bf      	POP  R27
+000355 91af      	POP  R26
+000356 9508      	RET
                  
                  __EEPROMRDB:
-00030d 99f9      	SBIC EECR,EEWE
-00030e cffe      	RJMP __EEPROMRDB
-00030f 93ff      	PUSH R31
-000310 b7ff      	IN   R31,SREG
-000311 94f8      	CLI
-000312 bda1      	OUT  EEARL,R26
-000313 bdb2      	OUT  EEARH,R27
-000314 9af8      	SBI  EECR,EERE
-000315 b5e0      	IN   R30,EEDR
-000316 bfff      	OUT  SREG,R31
-000317 91ff      	POP  R31
-000318 9508      	RET
+000357 99f9      	SBIC EECR,EEWE
+000358 cffe      	RJMP __EEPROMRDB
+000359 93ff      	PUSH R31
+00035a b7ff      	IN   R31,SREG
+00035b 94f8      	CLI
+00035c bda1      	OUT  EEARL,R26
+00035d bdb2      	OUT  EEARH,R27
+00035e 9af8      	SBI  EECR,EERE
+00035f b5e0      	IN   R30,EEDR
+000360 bfff      	OUT  SREG,R31
+000361 91ff      	POP  R31
+000362 9508      	RET
                  
                  __EEPROMWRB:
-000319 9bf9      	SBIS EECR,EEWE
-00031a c002      	RJMP __EEPROMWRB1
-00031b 95a8      	WDR
-00031c cffc      	RJMP __EEPROMWRB
+000363 9bf9      	SBIS EECR,EEWE
+000364 c002      	RJMP __EEPROMWRB1
+000365 95a8      	WDR
+000366 cffc      	RJMP __EEPROMWRB
                  __EEPROMWRB1:
-00031d b79f      	IN   R25,SREG
-00031e 94f8      	CLI
-00031f bda1      	OUT  EEARL,R26
-000320 bdb2      	OUT  EEARH,R27
-000321 9af8      	SBI  EECR,EERE
-000322 b580      	IN   R24,EEDR
-000323 17e8      	CP   R30,R24
-000324 f019      	BREQ __EEPROMWRB0
-000325 bde0      	OUT  EEDR,R30
-000326 9afa      	SBI  EECR,EEMWE
-000327 9af9      	SBI  EECR,EEWE
+000367 b79f      	IN   R25,SREG
+000368 94f8      	CLI
+000369 bda1      	OUT  EEARL,R26
+00036a bdb2      	OUT  EEARH,R27
+00036b 9af8      	SBI  EECR,EERE
+00036c b580      	IN   R24,EEDR
+00036d 17e8      	CP   R30,R24
+00036e f019      	BREQ __EEPROMWRB0
+00036f bde0      	OUT  EEDR,R30
+000370 9afa      	SBI  EECR,EEMWE
+000371 9af9      	SBI  EECR,EEWE
                  __EEPROMWRB0:
-000328 bf9f      	OUT  SREG,R25
-000329 9508      	RET
+000372 bf9f      	OUT  SREG,R25
+000373 9508      	RET
                  
                  _delay_ms:
-00032a 9610      	adiw r26,0
-00032b f039      	breq __delay_ms1
+000374 9610      	adiw r26,0
+000375 f039      	breq __delay_ms1
                  __delay_ms0:
-00032c 95a8      	wdr
+000376 95a8      	wdr
                 +
-00032d ed80     +LDI R24 , LOW ( 0x7D0 )
-00032e e097     +LDI R25 , HIGH ( 0x7D0 )
+000377 ed80     +LDI R24 , LOW ( 0x7D0 )
+000378 e097     +LDI R25 , HIGH ( 0x7D0 )
                 +__DELAY_USW_LOOP :
-00032f 9701     +SBIW R24 , 1
-000330 f7f1     +BRNE __DELAY_USW_LOOP
+000379 9701     +SBIW R24 , 1
+00037a f7f1     +BRNE __DELAY_USW_LOOP
                  	__DELAY_USW 0x7D0
-000331 9711      	sbiw r26,1
-000332 f7c9      	brne __delay_ms0
+00037b 9711      	sbiw r26,1
+00037c f7c9      	brne __delay_ms0
                  __delay_ms1:
-000333 9508      	ret
+00037d 9508      	ret
                  
                  ;END OF CODE MARKER
                  __END_OF_CODE:
@@ -2533,39 +2686,39 @@ counted separately from r26..r31 here.
 ATmega328P register use summary:
 r0 :   6 r1 :   1 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  38 r17:  10 r18:   9 r19:   5 r20:   0 r21:   0 r22:   2 r23:   0 
-r24:  13 r25:   5 r26:  88 r27:  31 r28:   9 r29:   2 r30: 144 r31:  53 
-x  :  15 y  :  66 z  :  15 
-Registers used: 18 out of 35 (51.4%)
+r16:  46 r17:  27 r18:  12 r19:   5 r20:   3 r21:   3 r22:   4 r23:   1 
+r24:  17 r25:   5 r26:  95 r27:  37 r28:   7 r29:   2 r30: 140 r31:  53 
+x  :  11 y  :  58 z  :  15 
+Registers used: 21 out of 35 (60.0%)
 
 ATmega328P instruction use summary:
-.lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   3 add   :   3 
-adiw  :  10 and   :   0 andi  :   7 asr   :   0 bclr  :   0 bld   :   0 
-brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :  12 
-brge  :   0 brhc  :   0 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 
-brlt  :   0 brmi  :   0 brne  :  24 brpl  :   0 brsh  :   3 brtc  :   0 
+.lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   4 add   :   4 
+adiw  :   7 and   :   0 andi  :   3 asr   :   0 bclr  :   0 bld   :   0 
+brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :   9 
+brge  :   0 brhc  :   0 brhs  :   0 brid  :   0 brie  :   0 brlo  :   2 
+brlt  :   0 brmi  :   0 brne  :  26 brpl  :   0 brsh  :   3 brtc  :   0 
 brts  :   0 brvc  :   0 brvs  :   0 bset  :   0 bst   :   0 call  :   0 
-cbi   :  19 cbr   :   0 clc   :   0 clh   :   0 cli   :   3 cln   :   0 
+cbi   :  22 cbr   :   0 clc   :   0 clh   :   0 cli   :   3 cln   :   0 
 clr   :   6 cls   :   0 clt   :   0 clv   :   0 clz   :   0 com   :   0 
-cp    :   2 cpc   :   8 cpi   :  18 cpse  :   0 dec   :   2 des   :   0 
+cp    :   2 cpc   :   9 cpi   :  21 cpse  :   0 dec   :   4 des   :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   4 inc   :   0 jmp   :  28 ld    :  16 ldd   :  24 ldi   : 119 
-lds   :  14 lpm   :  12 lsl   :   0 lsr   :   0 mov   :  11 movw  :   5 
-mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :  12 or    :   0 
-ori   :   0 out   :  13 pop   :   5 push  :   5 rcall :  80 ret   :  31 
-reti  :   0 rjmp  :  44 rol   :   0 ror   :   0 sbc   :   0 sbci  :   6 
-sbi   :  41 sbic  :   1 sbis  :  16 sbiw  :  10 sbr   :   0 sbrc  :   0 
-sbrs  :   0 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
+in    :   4 inc   :   0 jmp   :  30 ld    :  11 ldd   :  21 ldi   : 132 
+lds   :  20 lpm   :  12 lsl   :   0 lsr   :   0 mov   :  24 movw  :   6 
+mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :  13 or    :   0 
+ori   :   0 out   :  13 pop   :   7 push  :   7 rcall :  92 ret   :  32 
+reti  :   0 rjmp  :  51 rol   :   0 ror   :   0 sbc   :   0 sbci  :   6 
+sbi   :  48 sbic  :   1 sbis  :  18 sbiw  :  11 sbr   :   0 sbrc  :   0 
+sbrs  :   4 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :  42 std   :   4 sts   :  21 sub   :   0 subi  :  15 swap  :   1 
+st    :  38 std   :   4 sts   :  21 sub   :   0 subi  :  15 swap  :   1 
 tst   :   0 wdr   :   2 
-Instructions used: 42 out of 116 (36.2%)
+Instructions used: 43 out of 116 (37.1%)
 
 ATmega328P memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000668   1528    112   1640   32768   5.0%
-[.dseg] 0x000100 0x000312      0     18     18    2048   0.9%
+[.cseg] 0x000000 0x0006fc   1676    112   1788   32768   5.5%
+[.dseg] 0x000100 0x000314      0     20     20    2048   1.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
 Assembly complete, 0 errors, 2 warnings

@@ -1,0 +1,44 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+cursor                                                                            0x0300       1
+distancia                                                                         0x0301       2
+estado                                                                            0x0303       2
+tecla                                                                             0x0305       1
+i                                                                                 0x0306       2
+estatus                                                                           0x0308       2
+read_key                                                                          0x030A       4
+write_key                                                                         0x030E       4
+setting                                                                           0x0312       2
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+SetupLCD                                                                          0x0009B     43
+PulseEn                                                                           0x000C6      3
+SendDataBitsLCD                                                                   0x000C9     24
+WriteComandLCD                                                                    0x000E1      5
+CharLCD                                                                           0x000E6     27
+StringLCD                                                                         0x00101     20
+EraseLCD                                                                          0x00115      3
+MoveCursor                                                                        0x00118     36
+SetupKeypad                                                                       0x0013C      8
+LeeTeclado                                                                        0x00144     92
+trigger_s                                                                         0x001A0      6
+echo_s                                                                            0x001A6     24
+reiniciaClave                                                                     0x001BE     11
+comparaClave                                                                      0x001C9     24
+esperaTeclaNoImprime                                                              0x001E1     12
+esperaTeclaImprime                                                                0x001ED     15
+esperaTeclaImprimeConSensor                                                       0x001FC     36
+main                                                                              0x00220    146
+eeprom_read_block                                                                 0x002B2     16
+eeprom_write_block                                                                0x002C2     18
